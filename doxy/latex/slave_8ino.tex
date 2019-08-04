@@ -1,0 +1,386 @@
+\hypertarget{slave_8ino}{}\section{C\+:/\+Users/\+Sajjad/\+Documents/\+Arduino/\+Int\+Ense\+Cho\+I/\+Int\+Ense\+Cho\+I\+R8/code/slave/slave.ino File Reference}
+\label{slave_8ino}\index{C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/slave/slave.ino@{C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/slave/slave.ino}}
+
+
+arduino slave file  
+
+
+{\ttfamily \#include $<$Alt\+Soft\+Serial.\+h$>$}\newline
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{slave_8ino_ac4a0d1542e118f06f6f0997629d9ab84}{Jstick\+Mid}}~1
+\item 
+\#define \mbox{\hyperlink{slave_8ino_a9b93a0effb9c09248bcba85a28c48b8d}{Jstick\+Right}}~2
+\item 
+\#define \mbox{\hyperlink{slave_8ino_ad0d7429c7c26609751ca64fa94acb32c}{Jstick\+Left}}~3
+\item 
+\#define \mbox{\hyperlink{slave_8ino_acc8a88b497450472b81c5f95b9c3a605}{Jstick\+Down}}~4
+\item 
+\#define \mbox{\hyperlink{slave_8ino_a74824f5ea0f46df119320d99c9c287f3}{Jstick\+Up}}~5
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{slave_8ino_afaecaf2f7ff3d385786f146797fe3970}{send\+Cmd2\+Master}} (unsigned char cmd)
+\begin{DoxyCompactList}\small\item\em Send a command to serial port. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{slave_8ino_a1838aedbd7c80d2e66f6edf920484f72}{set\+R\+G\+B\+Color}} (unsigned char color)
+\begin{DoxyCompactList}\small\item\em Set a particular color of R\+GB L\+ED. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{slave_8ino_a4fc01d736fe50cf5b977f755b675f11d}{setup}} ()
+\begin{DoxyCompactList}\small\item\em initialization of Arduino Nano \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{slave_8ino_afe461d27b9c48d5921c00d521181f12f}{loop}} ()
+\begin{DoxyCompactList}\small\item\em Main loop Arduino Nano. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{slave_8ino_a5686c229bdef50123688ab6cb1404230}{I\+SR}} (T\+I\+M\+E\+R2\+\_\+\+C\+O\+M\+P\+A\+\_\+vect)
+\begin{DoxyCompactList}\small\item\em I\+SR for timer2 to trigger after 4ms. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{slave_8ino_aa282d056dc0e67857fc700fdce321f30}{I\+SR}} (T\+I\+M\+E\+R2\+\_\+\+C\+O\+M\+P\+B\+\_\+vect)
+\begin{DoxyCompactList}\small\item\em I\+SR for timer2 to trigger after 40ms. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const int \mbox{\hyperlink{slave_8ino_ad9dd51ba33ad54ebbfc73294ddcd5a4e}{L1}} = 13
+\item 
+const int \mbox{\hyperlink{slave_8ino_a4e5fb0594384753481b5ec0cb2ae6002}{R\+G\+BB}} = 12
+\item 
+const int \mbox{\hyperlink{slave_8ino_a02d9fe1f47725a923b1a53dd384f155a}{R\+G\+BG}} = 11
+\item 
+const int \mbox{\hyperlink{slave_8ino_a5bc0cd51e9659b02a8f4ab34bbe1e827}{R\+G\+BR}} = 10
+\item 
+const int \mbox{\hyperlink{slave_8ino_af78a75bd42bc29651caa8cdaee48181c}{trig2\+Master}} = 6
+\item 
+unsigned char \mbox{\hyperlink{slave_8ino_ac5d1ffdf8d27a1d426758f404490cf9f}{cnt4ms}}
+\item 
+unsigned char \mbox{\hyperlink{slave_8ino_ae5706ef178bfd4a28331580ac6775816}{cnt40ms}}
+\item 
+Alt\+Soft\+Serial \mbox{\hyperlink{slave_8ino_a104b9456ac0168a4fc542c36d0d6e5c0}{s}}
+\item 
+boolean \mbox{\hyperlink{slave_8ino_a14307e34d72446f8de465828c44258c0}{in\+Middle}}
+\item 
+unsigned char \mbox{\hyperlink{slave_8ino_a74b7512e5d4ca1d133f9179dc3a52474}{cnt\+Middle}}
+\item 
+unsigned char \mbox{\hyperlink{slave_8ino_a1384985077089723c6b018e994fbfb24}{rx\+State}}
+\item 
+unsigned char \mbox{\hyperlink{slave_8ino_a4d87cdc7ca3ca36af5abb2b043f14ade}{in\+Char}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+arduino slave file 
+
+This is the main for slave Nano controller, which handles the request/data from
+\begin{DoxyItemize}
+\item E\+S\+P8266
+\item Joystick and perform output actions to\+:
+\item R\+GB L\+ED
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+Sajjad Hussain
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+02.\+08.\+2019 
+\end{DoxyDate}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{slave_8ino_acc8a88b497450472b81c5f95b9c3a605}\label{slave_8ino_acc8a88b497450472b81c5f95b9c3a605}} 
+\index{slave.ino@{slave.ino}!JstickDown@{JstickDown}}
+\index{JstickDown@{JstickDown}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{JstickDown}{JstickDown}}
+{\footnotesize\ttfamily \#define Jstick\+Down~4}
+
+Joystick is in Down 
+
+Definition at line 28 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_ad0d7429c7c26609751ca64fa94acb32c}\label{slave_8ino_ad0d7429c7c26609751ca64fa94acb32c}} 
+\index{slave.ino@{slave.ino}!JstickLeft@{JstickLeft}}
+\index{JstickLeft@{JstickLeft}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{JstickLeft}{JstickLeft}}
+{\footnotesize\ttfamily \#define Jstick\+Left~3}
+
+Joystick is in Left 
+
+Definition at line 26 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_ac4a0d1542e118f06f6f0997629d9ab84}\label{slave_8ino_ac4a0d1542e118f06f6f0997629d9ab84}} 
+\index{slave.ino@{slave.ino}!JstickMid@{JstickMid}}
+\index{JstickMid@{JstickMid}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{JstickMid}{JstickMid}}
+{\footnotesize\ttfamily \#define Jstick\+Mid~1}
+
+Joystick is in Middle 
+
+Definition at line 22 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_a9b93a0effb9c09248bcba85a28c48b8d}\label{slave_8ino_a9b93a0effb9c09248bcba85a28c48b8d}} 
+\index{slave.ino@{slave.ino}!JstickRight@{JstickRight}}
+\index{JstickRight@{JstickRight}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{JstickRight}{JstickRight}}
+{\footnotesize\ttfamily \#define Jstick\+Right~2}
+
+Joystick is in Right 
+
+Definition at line 24 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_a74824f5ea0f46df119320d99c9c287f3}\label{slave_8ino_a74824f5ea0f46df119320d99c9c287f3}} 
+\index{slave.ino@{slave.ino}!JstickUp@{JstickUp}}
+\index{JstickUp@{JstickUp}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{JstickUp}{JstickUp}}
+{\footnotesize\ttfamily \#define Jstick\+Up~5}
+
+Joystick is in Up 
+
+Definition at line 30 of file slave.\+ino.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{slave_8ino_a5686c229bdef50123688ab6cb1404230}\label{slave_8ino_a5686c229bdef50123688ab6cb1404230}} 
+\index{slave.ino@{slave.ino}!ISR@{ISR}}
+\index{ISR@{ISR}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{ISR()}{ISR()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily I\+SR (\begin{DoxyParamCaption}\item[{T\+I\+M\+E\+R2\+\_\+\+C\+O\+M\+P\+A\+\_\+vect}]{ }\end{DoxyParamCaption})}
+
+
+
+I\+SR for timer2 to trigger after 4ms. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Definition at line 130 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_aa282d056dc0e67857fc700fdce321f30}\label{slave_8ino_aa282d056dc0e67857fc700fdce321f30}} 
+\index{slave.ino@{slave.ino}!ISR@{ISR}}
+\index{ISR@{ISR}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{ISR()}{ISR()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily I\+SR (\begin{DoxyParamCaption}\item[{T\+I\+M\+E\+R2\+\_\+\+C\+O\+M\+P\+B\+\_\+vect}]{ }\end{DoxyParamCaption})}
+
+
+
+I\+SR for timer2 to trigger after 40ms. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Definition at line 196 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_afe461d27b9c48d5921c00d521181f12f}\label{slave_8ino_afe461d27b9c48d5921c00d521181f12f}} 
+\index{slave.ino@{slave.ino}!loop@{loop}}
+\index{loop@{loop}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily void loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Main loop Arduino Nano. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Definition at line 112 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_afaecaf2f7ff3d385786f146797fe3970}\label{slave_8ino_afaecaf2f7ff3d385786f146797fe3970}} 
+\index{slave.ino@{slave.ino}!sendCmd2Master@{sendCmd2Master}}
+\index{sendCmd2Master@{sendCmd2Master}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{sendCmd2Master()}{sendCmd2Master()}}
+{\footnotesize\ttfamily void send\+Cmd2\+Master (\begin{DoxyParamCaption}\item[{unsigned char}]{cmd }\end{DoxyParamCaption})}
+
+
+
+Send a command to serial port. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd} & a command to indicate different actions of joystick to E\+S\+P8266 (master) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Definition at line 212 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_a1838aedbd7c80d2e66f6edf920484f72}\label{slave_8ino_a1838aedbd7c80d2e66f6edf920484f72}} 
+\index{slave.ino@{slave.ino}!setRGBColor@{setRGBColor}}
+\index{setRGBColor@{setRGBColor}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{setRGBColor()}{setRGBColor()}}
+{\footnotesize\ttfamily void set\+R\+G\+B\+Color (\begin{DoxyParamCaption}\item[{unsigned char}]{color }\end{DoxyParamCaption})}
+
+
+
+Set a particular color of R\+GB L\+ED. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & the color number from 0-\/7 (R\+ED, G\+R\+E\+EN, B\+L\+UE etc.... W\+H\+I\+TE). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+off
+
+Red (turn just the red L\+ED on)\+:
+
+Green (turn just the green L\+ED on)\+:
+
+Blue (turn just the blue L\+ED on)\+:
+
+Yellow (turn red and green on)\+:
+
+Cyan (turn green and blue on)\+:
+
+Purple (turn red and blue on)\+:
+
+White (turn all the L\+E\+Ds on)\+: 
+
+Definition at line 227 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_a4fc01d736fe50cf5b977f755b675f11d}\label{slave_8ino_a4fc01d736fe50cf5b977f755b675f11d}} 
+\index{slave.ino@{slave.ino}!setup@{setup}}
+\index{setup@{setup}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+initialization of Arduino Nano 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Definition at line 75 of file slave.\+ino.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{slave_8ino_ae5706ef178bfd4a28331580ac6775816}\label{slave_8ino_ae5706ef178bfd4a28331580ac6775816}} 
+\index{slave.ino@{slave.ino}!cnt40ms@{cnt40ms}}
+\index{cnt40ms@{cnt40ms}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{cnt40ms}{cnt40ms}}
+{\footnotesize\ttfamily unsigned char cnt40ms}
+
+Count 40ms Timer 2 triggers 
+
+Definition at line 55 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_ac5d1ffdf8d27a1d426758f404490cf9f}\label{slave_8ino_ac5d1ffdf8d27a1d426758f404490cf9f}} 
+\index{slave.ino@{slave.ino}!cnt4ms@{cnt4ms}}
+\index{cnt4ms@{cnt4ms}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{cnt4ms}{cnt4ms}}
+{\footnotesize\ttfamily unsigned char cnt4ms}
+
+Count 4ms Timer 2 triggers 
+
+Definition at line 53 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_a74b7512e5d4ca1d133f9179dc3a52474}\label{slave_8ino_a74b7512e5d4ca1d133f9179dc3a52474}} 
+\index{slave.ino@{slave.ino}!cntMiddle@{cntMiddle}}
+\index{cntMiddle@{cntMiddle}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{cntMiddle}{cntMiddle}}
+{\footnotesize\ttfamily unsigned char cnt\+Middle}
+
+Counter to count how much time it is in Middle Position 
+
+Definition at line 61 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_a4d87cdc7ca3ca36af5abb2b043f14ade}\label{slave_8ino_a4d87cdc7ca3ca36af5abb2b043f14ade}} 
+\index{slave.ino@{slave.ino}!inChar@{inChar}}
+\index{inChar@{inChar}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{inChar}{inChar}}
+{\footnotesize\ttfamily unsigned char in\+Char}
+
+Serial Port input character 
+
+Definition at line 65 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_a14307e34d72446f8de465828c44258c0}\label{slave_8ino_a14307e34d72446f8de465828c44258c0}} 
+\index{slave.ino@{slave.ino}!inMiddle@{inMiddle}}
+\index{inMiddle@{inMiddle}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{inMiddle}{inMiddle}}
+{\footnotesize\ttfamily boolean in\+Middle}
+
+Joystick Middle position 
+
+Definition at line 59 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_ad9dd51ba33ad54ebbfc73294ddcd5a4e}\label{slave_8ino_ad9dd51ba33ad54ebbfc73294ddcd5a4e}} 
+\index{slave.ino@{slave.ino}!L1@{L1}}
+\index{L1@{L1}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{L1}{L1}}
+{\footnotesize\ttfamily const int L1 = 13}
+
+L\+ED General Purpose 
+
+Definition at line 35 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_a4e5fb0594384753481b5ec0cb2ae6002}\label{slave_8ino_a4e5fb0594384753481b5ec0cb2ae6002}} 
+\index{slave.ino@{slave.ino}!RGBB@{RGBB}}
+\index{RGBB@{RGBB}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{RGBB}{RGBB}}
+{\footnotesize\ttfamily const int R\+G\+BB = 12}
+
+R\+GB B\+L\+UE P\+IN 
+
+Definition at line 37 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_a02d9fe1f47725a923b1a53dd384f155a}\label{slave_8ino_a02d9fe1f47725a923b1a53dd384f155a}} 
+\index{slave.ino@{slave.ino}!RGBG@{RGBG}}
+\index{RGBG@{RGBG}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{RGBG}{RGBG}}
+{\footnotesize\ttfamily const int R\+G\+BG = 11}
+
+R\+GB G\+R\+E\+EN P\+IN 
+
+Definition at line 39 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_a5bc0cd51e9659b02a8f4ab34bbe1e827}\label{slave_8ino_a5bc0cd51e9659b02a8f4ab34bbe1e827}} 
+\index{slave.ino@{slave.ino}!RGBR@{RGBR}}
+\index{RGBR@{RGBR}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{RGBR}{RGBR}}
+{\footnotesize\ttfamily const int R\+G\+BR = 10}
+
+R\+GB R\+ED P\+IN 
+
+Definition at line 41 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_a1384985077089723c6b018e994fbfb24}\label{slave_8ino_a1384985077089723c6b018e994fbfb24}} 
+\index{slave.ino@{slave.ino}!rxState@{rxState}}
+\index{rxState@{rxState}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{rxState}{rxState}}
+{\footnotesize\ttfamily unsigned char rx\+State}
+
+Serial Port State 
+
+Definition at line 63 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_a104b9456ac0168a4fc542c36d0d6e5c0}\label{slave_8ino_a104b9456ac0168a4fc542c36d0d6e5c0}} 
+\index{slave.ino@{slave.ino}!s@{s}}
+\index{s@{s}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{s}{s}}
+{\footnotesize\ttfamily Alt\+Soft\+Serial s}
+
+Serial Port 
+
+Definition at line 57 of file slave.\+ino.
+
+\mbox{\Hypertarget{slave_8ino_af78a75bd42bc29651caa8cdaee48181c}\label{slave_8ino_af78a75bd42bc29651caa8cdaee48181c}} 
+\index{slave.ino@{slave.ino}!trig2Master@{trig2Master}}
+\index{trig2Master@{trig2Master}!slave.ino@{slave.ino}}
+\subsubsection{\texorpdfstring{trig2Master}{trig2Master}}
+{\footnotesize\ttfamily const int trig2\+Master = 6}
+
+Trigger Interrupt to Master 
+
+Definition at line 43 of file slave.\+ino.
+

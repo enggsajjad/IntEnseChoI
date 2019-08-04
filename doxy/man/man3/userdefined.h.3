@@ -1,0 +1,856 @@
+.TH "C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/master/userdefined.h" 3 "Sat Aug 3 2019" "IntEnseChoI" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/master/userdefined.h \- variable and function definitions  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <ESP8266WiFi\&.h>\fP
+.br
+\fC#include <Ticker\&.h>\fP
+.br
+\fC#include <Wire\&.h>\fP
+.br
+\fC#include 'SSD1306Wire\&.h'\fP
+.br
+\fC#include <SoftwareSerial\&.h>\fP
+.br
+\fC#include <PubSubClient\&.h>\fP
+.br
+\fC#include <ArduinoJson\&.h>\fP
+.br
+\fC#include <WiFiUdp\&.h>\fP
+.br
+\fC#include 'images\&.h'\fP
+.br
+\fC#include 'Adafruit_DRV2605\&.h'\fP
+.br
+\fC#include <Adafruit_LSM9DS1\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBDEBOUNCE_TIME\fP   10"
+.br
+.RI "Include custom images\&. "
+.ti -1c
+.RI "#define \fBHOLDSTART_TIME\fP   1000"
+.br
+.ti -1c
+.RI "#define \fBmqtt_port\fP   1883"
+.br
+.ti -1c
+.RI "#define \fBMQTT_USER\fP   'Sajjad'"
+.br
+.ti -1c
+.RI "#define \fBMQTT_PASSWORD\fP   '#sajjan2'"
+.br
+.ti -1c
+.RI "#define \fBPUBLISH__AUDIO_CH\fP   'intensechoi/controller/audio'"
+.br
+.ti -1c
+.RI "#define \fBPUBLISH_CH\fP   'intensechoi/controller/get'"
+.br
+.ti -1c
+.RI "#define \fBSUBSCRIBE_CH\fP   'intensechoi/controller/set'"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "PubSubClient \fBclient\fP (\fBwifiClient\fP)"
+.br
+.RI "handles the states of Action button "
+.ti -1c
+.RI "SoftwareSerial \fBs\fP (4, 0)"
+.br
+.RI "instance of accelerometer gyroscope and magnetometer "
+.ti -1c
+.RI "SSD1306Wire \fBoled\fP (0x3d, 2, 14)"
+.br
+.RI "Serial port with Rx,Tx pins\&. "
+.ti -1c
+.RI "int \fBfrequency\fP (char note)"
+.br
+.RI "microphone input "
+.ti -1c
+.RI "void \fBsmooth\fP (int axis, float val)"
+.br
+.RI "Average the LSM9DS1 readings\&. "
+.ti -1c
+.RI "void \fBsetVibrationMode\fP (unsigned char vm)"
+.br
+.RI "Implement vibration modes 1,2,3,4 on DRV2605\&. "
+.ti -1c
+.RI "void \fBsetBuzzerMode\fP (unsigned char bm)"
+.br
+.RI "Implement buzzer modes 1,2,3,4 on beeper\&. "
+.ti -1c
+.RI "void \fBsendCmd2Slave\fP (unsigned char cmd)"
+.br
+.RI "Send Serial command to Nano (Slave) "
+.ti -1c
+.RI "void \fBparsing\fP (byte *payload)"
+.br
+.RI "Parsing the payload message recevied in callback function\&. "
+.ti -1c
+.RI "void \fBreconnect\fP ()"
+.br
+.RI "Connect/reconnect to the Wifi\&. "
+.ti -1c
+.RI "void \fBsetup_wifi\fP ()"
+.br
+.RI "setup the Wifi "
+.ti -1c
+.RI "void \fBsetDisplayMode\fP (unsigned char om)"
+.br
+.RI "Implement display modes 1,2,3,4 on OLED\&. "
+.ti -1c
+.RI "void \fBcallback\fP (char *topic, byte *payload, unsigned int length)"
+.br
+.RI "Callback function is called when there is MQTT message\&. "
+.ti -1c
+.RI "void ICACHE_RAM_ATTR \fBContextKeyIsPressed\fP ()"
+.br
+.RI "//Handle Push Button Interrupt for Context "
+.ti -1c
+.RI "void ICACHE_RAM_ATTR \fBVoiceKeyIsPressed\fP ()"
+.br
+.RI "//Handle Push Button Interrupt for Voice "
+.ti -1c
+.RI "void ICACHE_RAM_ATTR \fBActionKeyIsPressed\fP ()"
+.br
+.RI "Handle Push Button Interrupt for Action\&. "
+.ti -1c
+.RI "void ICACHE_RAM_ATTR \fBSerialTriggerISR\fP ()"
+.br
+.RI "Detects the Interrupt From Nano to start serial data\&. "
+.ti -1c
+.RI "void \fBprocessButtons\fP (void)"
+.br
+.RI "Routine to Handle the Push Button Presses and Holds\&. "
+.ti -1c
+.RI "void \fBprocessRxInput\fP (void)"
+.br
+.RI "process serial data from Nano "
+.ti -1c
+.RI "void \fBsetup_lsm9ds1\fP (void)"
+.br
+.RI "Setting up the LSM9DS1 Accelerometer\&. "
+.ti -1c
+.RI "void \fBread_lsm9ds1\fP (void)"
+.br
+.RI "Read the LSM9DS1 and detect the Right, Left, Away and Close Movements\&. "
+.ti -1c
+.RI "void \fBsetup_drv2605\fP (void)"
+.br
+.RI "Setting up the DRV2605 Motor\&. "
+.ti -1c
+.RI "void \fBsetup_oled\fP (void)"
+.br
+.RI "Setting up the OLED Display\&. "
+.ti -1c
+.RI "void \fBreadMic\fP ()"
+.br
+.RI "reading the Microphone with timer function "
+.ti -1c
+.RI "void \fBrefreshOLED\fP ()"
+.br
+.ti -1c
+.RI "void \fBrefreshSubscribe\fP ()"
+.br
+.RI "resend the subscrib message to MQTT again and again, using Ticker "
+.ti -1c
+.RI "Ticker \fBtmrMic\fP (\fBreadMic\fP, 120, 0, MICROS_MICROS)"
+.br
+.ti -1c
+.RI "void \fBsubscribing\fP (String devState, String actState='NULL')"
+.br
+.RI "publish a message with device and its state "
+.ti -1c
+.RI "void \fBrefreshOLED1\fP ()"
+.br
+.RI "call this function again and again, using Ticker "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "const char * \fBmqtt_server\fP = 'broker\&.mqtt\-dashboard\&.com'"
+.br
+.ti -1c
+.RI "const char * \fBssid\fP = 'UPC0870375'"
+.br
+.ti -1c
+.RI "const char * \fBpassword\fP = 'Ghnfdd6byuxp'"
+.br
+.RI "Your Wifi SSID\&. "
+.ti -1c
+.RI "unsigned char \fBwState\fP"
+.br
+.RI "Your Wifi Password\&. "
+.ti -1c
+.RI "WiFiClient \fBwifiClient\fP"
+.br
+.RI "States for incomming MQTT messages\&. "
+.ti -1c
+.RI "String \fBarr\fP [9]"
+.br
+.RI "Your WiFi Client\&. "
+.ti -1c
+.RI "String \fBdevice\fP [8] ={'light', 'tv', '\-', 'thermo', '\-','window', '\-', '\-'}"
+.br
+.RI "Array of hold a device and 8 mappings in the recieved MQTT message\&. "
+.ti -1c
+.RI "String \fBactions\fP [8] ={'on', 'off', 'red', 'blue', 'green','dim', '\-', '\-'}"
+.br
+.RI "Array of 8 mapped device from the recieved MQTT message\&. "
+.ti -1c
+.RI "String \fBmapDevice\fP [1] = {\fBdevice\fP[0]}"
+.br
+.RI "Array of 8 mapped actions from the recieved MQTT message\&. "
+.ti -1c
+.RI "String \fBmapAction\fP [1] = {\fBactions\fP[0]}"
+.br
+.RI "Selected device from the MQTT Messages\&. "
+.ti -1c
+.RI "String \fBcontextDevice\fP [1] = {\fBdevice\fP[0]}"
+.br
+.RI "Selected action from the MQTT Messages\&. "
+.ti -1c
+.RI "boolean \fBmoveEvent\fP"
+.br
+.RI "contexed device from the MQTT Messages "
+.ti -1c
+.RI "unsigned char \fBrxState\fP"
+.br
+.RI "Joystick or Accelerometer differnt move events\&. "
+.ti -1c
+.RI "unsigned char \fBbtnState\fP =0"
+.br
+.RI "Serial Port states, to handle\&. "
+.ti -1c
+.RI "unsigned char \fBrxData\fP"
+.br
+.RI "Push Button States, to handle clicked, released, hold and hold end\&. "
+.ti -1c
+.RI "boolean \fBsecondScreen\fP"
+.br
+.RI "Serial Port recieved character\&. "
+.ti -1c
+.RI "unsigned char \fBoptIndex\fP"
+.br
+.RI "handles two screens of the display to cater 8 device/actions "
+.ti -1c
+.RI "unsigned char \fBdisplayMode\fP =10"
+.br
+.RI "moveEvent index "
+.ti -1c
+.RI "unsigned char \fBvibrationMode\fP =\-1"
+.br
+.RI "handles different display modes/screens 1,2,3,4 "
+.ti -1c
+.RI "unsigned char \fBbuzzerMode\fP =\-1"
+.br
+.RI "handles different vibration modes, 1,2,3,4 "
+.ti -1c
+.RI "unsigned char \fBoldDisplayMode\fP =10"
+.br
+.RI "handles different buzzer moder 1,2,3,4 "
+.ti -1c
+.RI "unsigned char \fBoldVibrationMode\fP =\-1"
+.br
+.RI "older display modes/screens "
+.ti -1c
+.RI "unsigned char \fBoldBuzzerMode\fP =\-1"
+.br
+.RI "older vibration modes, "
+.ti -1c
+.RI "boolean \fBrecDone\fP"
+.br
+.RI "Count 125us samples from microphone\&. "
+.ti -1c
+.RI "boolean \fBrecording\fP"
+.br
+.RI "Recording is done\&. "
+.ti -1c
+.RI "boolean \fBrxflag\fP =false"
+.br
+.RI "Start recording\&. "
+.ti -1c
+.RI "boolean \fBrxValid\fP =false"
+.br
+.RI "if there is a serial character "
+.ti -1c
+.RI "unsigned char \fBgState\fP =0"
+.br
+.RI "Audio packet counting\&. "
+.ti -1c
+.RI "unsigned char \fBcntms\fP =0"
+.br
+.RI "handles accelerometers statemachine "
+.ti -1c
+.RI "unsigned char \fBcurDirection\fP"
+.br
+.RI "counts accelerometers logging time "
+.ti -1c
+.RI "const int \fBnumReadings\fP = 25"
+.br
+.RI "accelerometers current direction "
+.ti -1c
+.RI "const int \fBnumAxis\fP =3"
+.br
+.RI "number of readings to average out the accelerometer readings "
+.ti -1c
+.RI "float \fBreadings\fP [\fBnumAxis\fP][\fBnumReadings\fP]"
+.br
+.RI "number of axis of accelerometers "
+.ti -1c
+.RI "int \fBreadIndex\fP [\fBnumAxis\fP]"
+.br
+.RI "the accelerometer reading history "
+.ti -1c
+.RI "float \fBtotal\fP [\fBnumAxis\fP]"
+.br
+.RI "the accelerometer index of the current reading "
+.ti -1c
+.RI "float \fBaverage\fP [\fBnumAxis\fP]"
+.br
+.RI "the accelerometer running total "
+.ti -1c
+.RI "float \fBaxm\fP"
+.br
+.RI "the accelerometer average "
+.ti -1c
+.RI "float \fBaym\fP"
+.br
+.RI "mapped acclerometer x axis value "
+.ti -1c
+.RI "float \fBazm\fP"
+.br
+.RI "mapped acclerometer y axis value "
+.ti -1c
+.RI "sensors_event_t \fBa\fP"
+.br
+.RI "mapped acclerometer z axis value "
+.ti -1c
+.RI "sensors_event_t \fBm\fP"
+.br
+.ti -1c
+.RI "sensors_event_t \fBg\fP"
+.br
+.ti -1c
+.RI "unsigned long \fBpre25ms\fP"
+.br
+.RI "sensor event for accelerometer, magnetometer and gyroscope "
+.ti -1c
+.RI "unsigned long \fBpre500ms\fP"
+.br
+.RI "previous values of 25ms logged "
+.ti -1c
+.RI "unsigned long \fBpre3000ms\fP"
+.br
+.RI "previous values of 500ms logged "
+.ti -1c
+.RI "volatile boolean \fBcontextKeyPressed\fP = false"
+.br
+.RI "previous values of 3000ms logged "
+.ti -1c
+.RI "volatile boolean \fBcontextFirstEdge\fP = false"
+.br
+.RI "if Context Push Button is pressed? "
+.ti -1c
+.RI "volatile boolean \fBcontextHolding\fP = false"
+.br
+.RI "if Context Push Button gives first edge? "
+.ti -1c
+.RI "volatile boolean \fBvoiceKeyPressed\fP = false"
+.br
+.RI "if Context Push Button starts holding? "
+.ti -1c
+.RI "volatile boolean \fBvoiceFirstEdge\fP = false"
+.br
+.RI "if voice Push Button is pressed? "
+.ti -1c
+.RI "volatile boolean \fBvoiceHolding\fP = false"
+.br
+.RI "if voice Push Button gives first edge? "
+.ti -1c
+.RI "volatile boolean \fBactionKeyPressed\fP = false"
+.br
+.RI "if voice Push Button starts holding? "
+.ti -1c
+.RI "volatile boolean \fBactionFirstEdge\fP = false"
+.br
+.RI "if action Push Button is pressed? "
+.ti -1c
+.RI "volatile boolean \fBactionHolding\fP = false"
+.br
+.RI "if action Push Button gives first edge? "
+.ti -1c
+.RI "unsigned long \fBtimeContextKeyPress\fP = 0"
+.br
+.RI "if action Push Button starts holding? "
+.ti -1c
+.RI "unsigned long \fBtimeContextLastPress\fP = 0"
+.br
+.RI "occurance time of Context key pressed "
+.ti -1c
+.RI "unsigned long \fBtimeVoiceKeyPress\fP = 0"
+.br
+.RI "last occurance time of Context key pressed "
+.ti -1c
+.RI "unsigned long \fBtimeVoiceLastPress\fP = 0"
+.br
+.RI "occurance time of Voice key pressed "
+.ti -1c
+.RI "unsigned long \fBtimeActionKeyPress\fP = 0"
+.br
+.RI "last occurance time of Voice key pressed "
+.ti -1c
+.RI "unsigned long \fBtimeActionLastPress\fP = 0"
+.br
+.RI "occurance time of Action key pressed "
+.ti -1c
+.RI "boolean \fBswContextState\fP"
+.br
+.RI "last occurance time of Action key pressed "
+.ti -1c
+.RI "boolean \fBswVoiceState\fP"
+.br
+.RI "handles the states of Context button "
+.ti -1c
+.RI "boolean \fBswActionState\fP"
+.br
+.RI "handles the states of Voice button "
+.ti -1c
+.RI "WiFiUDP \fBUdp\fP"
+.br
+.RI "instance of Wifi Client "
+.ti -1c
+.RI "Adafruit_DRV2605 \fBdrv\fP"
+.br
+.RI "instance of UDP Packet transmission to test audio "
+.ti -1c
+.RI "Adafruit_LSM9DS1 \fBlsm\fP = Adafruit_LSM9DS1()"
+.br
+.RI "instance of driver motor "
+.ti -1c
+.RI "const int \fBswContext\fP = 12"
+.br
+.RI "I2C Interface with Address, SDA, SCL\&. "
+.ti -1c
+.RI "const int \fBswVoice\fP = 13"
+.br
+.RI "Context Push Button\&. "
+.ti -1c
+.RI "const int \fBswAction\fP = 5"
+.br
+.RI "Voice Push Button\&. "
+.ti -1c
+.RI "const int \fBbuzzerPin\fP = 16"
+.br
+.RI "Action Push Button\&. "
+.ti -1c
+.RI "const int \fBinterruptPin\fP = 15"
+.br
+.RI "pasive buzzer pin "
+.ti -1c
+.RI "const int \fBmic\fP = A0"
+.br
+.RI "trigger interrupt from the slave "
+.in -1c
+.SH "Detailed Description"
+.PP 
+variable and function definitions 
+
+This is the files that contains the variables, macros, pins definitions and user defined functions\&.
+.PP
+\fBAuthor:\fP
+.RS 4
+Sajjad Hussain
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+02\&.08\&.2019 
+.RE
+.PP
+
+.PP
+Definition in file \fBuserdefined\&.h\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void ICACHE_RAM_ATTR ActionKeyIsPressed ()"
+
+.PP
+Handle Push Button Interrupt for Action\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 673 of file userdefined\&.h\&.
+.SS "void callback (char * topic, byte * payload, unsigned int length)"
+
+.PP
+Callback function is called when there is MQTT message\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItopic\fP topic where mqtt message is comping from 
+.br
+\fIpayload\fP the actual message 
+.br
+\fIlength\fP the message length 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 728 of file userdefined\&.h\&.
+.SS "void ICACHE_RAM_ATTR ContextKeyIsPressed ()"
+
+.PP
+//Handle Push Button Interrupt for Context 
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 651 of file userdefined\&.h\&.
+.SS "int frequency (char note)"
+
+.PP
+microphone input Generate the audio tone for beeper\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fInote\fP play the note 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 1193 of file userdefined\&.h\&.
+.SS "void parsing (byte * payload)"
+
+.PP
+Parsing the payload message recevied in callback function\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpayload\fP The mqtt payload message 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 1012 of file userdefined\&.h\&.
+.SS "void processButtons (void)"
+
+.PP
+Routine to Handle the Push Button Presses and Holds\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 446 of file userdefined\&.h\&.
+.SS "void processRxInput (void)"
+
+.PP
+process serial data from Nano 
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 395 of file userdefined\&.h\&.
+.SS "void read_lsm9ds1 (void)"
+
+.PP
+Read the LSM9DS1 and detect the Right, Left, Away and Close Movements\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 244 of file userdefined\&.h\&.
+.SS "void readMic ()"
+
+.PP
+reading the Microphone with timer function 
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 94 of file master\&.ino\&.
+.SS "void reconnect ()"
+
+.PP
+Connect/reconnect to the Wifi\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 972 of file userdefined\&.h\&.
+.SS "void refreshOLED1 ()"
+
+.PP
+call this function again and again, using Ticker 
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 715 of file userdefined\&.h\&.
+.SS "void refreshSubscribe ()"
+
+.PP
+resend the subscrib message to MQTT again and again, using Ticker 
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 699 of file userdefined\&.h\&.
+.SS "void sendCmd2Slave (unsigned char cmd)"
+
+.PP
+Send Serial command to Nano (Slave) 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcmd\fP The modes number 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 1041 of file userdefined\&.h\&.
+.SS "void ICACHE_RAM_ATTR SerialTriggerISR ()"
+
+.PP
+Detects the Interrupt From Nano to start serial data\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 434 of file userdefined\&.h\&.
+.SS "void setBuzzerMode (unsigned char bm)"
+
+.PP
+Implement buzzer modes 1,2,3,4 on beeper\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIbm\fP The modes number 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 1061 of file userdefined\&.h\&.
+.SS "void setDisplayMode (unsigned char om)"
+
+.PP
+Implement display modes 1,2,3,4 on OLED\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIom\fP The modes number 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 815 of file userdefined\&.h\&.
+.SS "void setup_drv2605 (void)"
+
+.PP
+Setting up the DRV2605 Motor\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 338 of file userdefined\&.h\&.
+.SS "void setup_lsm9ds1 (void)"
+
+.PP
+Setting up the LSM9DS1 Accelerometer\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 215 of file userdefined\&.h\&.
+.SS "void setup_oled (void)"
+
+.PP
+Setting up the OLED Display\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 356 of file userdefined\&.h\&.
+.SS "void setup_wifi ()"
+
+.PP
+setup the Wifi 
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 941 of file userdefined\&.h\&.
+.SS "void setVibrationMode (unsigned char vm)"
+
+.PP
+Implement vibration modes 1,2,3,4 on DRV2605\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIvm\fP The modes number 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 1094 of file userdefined\&.h\&.
+.SS "void smooth (int axis, float val)"
+
+.PP
+Average the LSM9DS1 readings\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIaxis\fP The axis number 1,2,3 
+.br
+\fIval\fP The axis acceleration value 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 1170 of file userdefined\&.h\&.
+.SS "void subscribing (String devState, String actState = \fC'NULL'\fP)"
+
+.PP
+publish a message with device and its state 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevState\fP the first part of the message 
+.br
+\fIactState\fP the second part of the message 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 187 of file userdefined\&.h\&.
+.SS "void ICACHE_RAM_ATTR VoiceKeyIsPressed ()"
+
+.PP
+//Handle Push Button Interrupt for Voice 
+.PP
+\fBReturns:\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line 662 of file userdefined\&.h\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for IntEnseChoI from the source code\&.

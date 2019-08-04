@@ -1,0 +1,76 @@
+\hypertarget{index_intro_sec}{}\section{Introduction}\label{index_intro_sec}
+This the main page for the Haptic Controller which is the core of the project. It consists of two microcontrollers i.\+e. a master microcontroller and a slave microcontroller. Master microcontroller is E\+S\+P8266 Sparkfun Thing Dev -\/---$>$ \href{https://www.sparkfun.com/products/13711}{\texttt{ https\+://www.\+sparkfun.\+com/products/13711}} This controller interacts with the slave microcontroller i.\+e. Arduino Nano. And, it provides the controller to interact with different object using its connected input sensors. It also provide notifications using different output options.~\newline
+Slave microcontroller is Arduino Nano -\/---$>$ \href{https://store.arduino.cc/arduino-nano}{\texttt{ https\+://store.\+arduino.\+cc/arduino-\/nano}} This is used to extend the digital and analog pins of the master microcontroller. And these two are inter-\/connected using serial communication with a trigger input.\hypertarget{index_hw_sec}{}\section{Hardware}\label{index_hw_sec}
+There are two boards used, one as a master and the other as a slave.~\newline
+
+\begin{DoxyEnumerate}
+\item Sparkfun E\+S\+P8266 Thing Dev -\/---$>$ \href{https://www.sparkfun.com/products/13711}{\texttt{ https\+://www.\+sparkfun.\+com/products/13711}}
+\item Arduino Nano -\/---$>$ \href{https://store.arduino.cc/arduino-nano}{\texttt{ https\+://store.\+arduino.\+cc/arduino-\/nano}} 
+\end{DoxyEnumerate}\hypertarget{index_hw_sec1}{}\subsection{Master Hardware}\label{index_hw_sec1}
+Board\+: E\+S\+P8266 Thing Dev from Sparkfun~\newline
+Peripherals\+:~\newline
+
+\begin{DoxyEnumerate}
+\item Input\+: Thress Push Buttons Connected with three states Clicked, Hold and Released state~\newline
+
+\item Input\+: Accelerometer L\+S\+M9\+D\+S1~\newline
+
+\item Input\+: Joystick from Nano~\newline
+
+\item Input\+: Microphone Max9814~\newline
+
+\item Output\+: R\+GB L\+ED to Nano~\newline
+
+\item Output\+: 128x64 O\+L\+ED Display S\+S\+D1306~\newline
+
+\item Output\+: Active Buzzer~\newline
+
+\item Output\+: Vibration Motor Driver D\+R\+V2605~\newline
+
+\item Nano\+: Connected using Softerial Rx,Tx and a Trigger Pin
+\end{DoxyEnumerate}\hypertarget{index_hw_sec2}{}\subsection{Slave Hardware}\label{index_hw_sec2}
+Board\+: Arduino Nano~\newline
+Peripherals\+: ~\newline
+
+\begin{DoxyEnumerate}
+\item Input Sensor\+: Joystick connected to Analoge inputs~\newline
+
+\item Ouput R\+GB L\+ED\+:~\newline
+
+\item E\+S\+P8266\+: Connected using Softerial Rx,Tx and a Trigger Pin~\newline
+ 
+\end{DoxyEnumerate}\hypertarget{index_libraries}{}\subsection{Libraries}\label{index_libraries}
+Following libraries are used during the project. name=Adafruit D\+R\+V2605 Library , version=1.\+1.\+0~\newline
+name=Adafruit G\+FX Library , version=1.\+4.\+8~\newline
+name=Adafruit L\+S\+M9\+D\+S1 Library , version=1.\+0.\+1~\newline
+name=Adafruit M\+Q\+TT Library , version=1.\+0.\+3~\newline
+name=Adafruit Neo\+Pixel , version=1.\+1.\+8~\newline
+name=Adafruit S\+S\+D1306 , version=1.\+2.\+9~\newline
+name=Adafruit Unified Sensor , version=1.\+0.\+3~\newline
+name=Alt\+Soft\+Serial , version=1.\+4~\newline
+name=Arduino\+Json , version=5.\+13.\+5~\newline
+name=E\+S\+P8266 and E\+S\+P32 Oled Driver for S\+S\+D1306 display , version=4.\+0.\+0~\newline
+name=Neo\+S\+W\+Serial , version=3.\+0.\+5~\newline
+name=Pin\+Change\+Interrupt , version=1.\+2.\+6~\newline
+name=Pub\+Sub\+Client , version=2.\+7~\newline
+name=Scheduler , version=0.\+4.\+4~\newline
+name=Spark\+Fun Haptic Motor Driver , version=1.\+1.\+1\hypertarget{index_testing}{}\subsection{Testing}\label{index_testing}
+Testing M\+Q\+TT M\+Essages~\newline
+M\+Q\+T\+T\+Box\+: Test3~\newline
+Topic to publish\+: intensechoi/controller/set~\newline
+Topic to subscribe messages\+: intensechoi/controller/get~\newline
+Topic to subscribe audio\+: intensechoi/controller/audio~\newline
+Protocol\+: mqtt/tcp~\newline
+Host\+: broker.\+mqtt-\/dashboard.\+com~\newline
+Username\+: \char`\"{}\+Sajjad\char`\"{}~\newline
+Password\+: \char`\"{}\#sajjan\char`\"{}~\newline
+Examples\+:~\newline
+ \{\char`\"{}device\char`\"{}\+: \char`\"{}none\char`\"{}, \char`\"{}mapping\char`\"{}\+: \mbox{[}\char`\"{}light\char`\"{}, \char`\"{}thermo\char`\"{}, \char`\"{}fan\char`\"{},\char`\"{}-\/\char`\"{}, \char`\"{}window\char`\"{}, \char`\"{}-\/\char`\"{},\char`\"{}-\/\char`\"{}, \char`\"{}tv\char`\"{}\mbox{]}\}~\newline
+ \{\char`\"{}device\char`\"{}\+: \char`\"{}light\char`\"{}, \char`\"{}mapping\char`\"{}\+: \mbox{[}\char`\"{}up\char`\"{}, \char`\"{}down\char`\"{}, \char`\"{}open\char`\"{},\char`\"{}-\/\char`\"{}, \char`\"{}close\char`\"{}, \char`\"{}-\/\char`\"{},\char`\"{}-\/\char`\"{}, \char`\"{}dim\char`\"{}\mbox{]}\}~\newline
+ \hypertarget{index_author}{}\section{Author}\label{index_author}
+Written by T\+E\+C\+O.\+edu and Chair for Pervasive Computing Systems (pcs.\+tm.\+kit.\+edu)\hypertarget{index_license}{}\section{License}\label{index_license}
+This code belongs to teco.\+edu and must be reffered when used. B\+SD license, all text here must be included in any redistribution.
+
+\begin{DoxyDate}{Date}
+02.\+08.\+2019 
+\end{DoxyDate}

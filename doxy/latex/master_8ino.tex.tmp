@@ -1,0 +1,17 @@
+\hypertarget{master_8ino}{}\section{C\+:/\+Users/\+Sajjad/\+Documents/\+Arduino/\+Int\+Ense\+Cho\+I/\+Int\+Ense\+Cho\+I\+\_\+\+Esp8266\+R8/master/master.ino File Reference}
+\label{master_8ino}\index{C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoI\_Esp8266R8/master/master.ino@{C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoI\_Esp8266R8/master/master.ino}}
+{\ttfamily \#include \char`\"{}userdefined.\+h\char`\"{}}\newline
+Include dependency graph for master.\+ino\+:
+% FIG 0
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{master_8ino_a4fc01d736fe50cf5b977f755b675f11d}\label{master_8ino_a4fc01d736fe50cf5b977f755b675f11d}} 
+void {\bfseries setup} ()
+\item 
+\mbox{\Hypertarget{master_8ino_acb567cd7c0b4da511205a0194cb9da81}\label{master_8ino_acb567cd7c0b4da511205a0194cb9da81}} 
+void {\bfseries read\+Mic} ()
+\item 
+\mbox{\Hypertarget{master_8ino_afe461d27b9c48d5921c00d521181f12f}\label{master_8ino_afe461d27b9c48d5921c00d521181f12f}} 
+void {\bfseries loop} ()
+\end{DoxyCompactItemize}
