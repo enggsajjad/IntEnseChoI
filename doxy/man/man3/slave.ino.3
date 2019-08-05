@@ -1,4 +1,4 @@
-.TH "C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/slave/slave.ino" 3 "Sat Aug 3 2019" "IntEnseChoI" \" -*- nroff -*-
+.TH "C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/slave/slave.ino" 3 "Mon Aug 5 2019" "IntEnseChoI" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -16,18 +16,23 @@ C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/slave/slave.ino
 .ti -1c
 .RI "#define \fBJstickMid\fP   1"
 .br
+.RI "Joystick is in Middle\&. "
 .ti -1c
 .RI "#define \fBJstickRight\fP   2"
 .br
+.RI "Joystick is in Right\&. "
 .ti -1c
 .RI "#define \fBJstickLeft\fP   3"
 .br
+.RI "Joystick is in Left\&. "
 .ti -1c
 .RI "#define \fBJstickDown\fP   4"
 .br
+.RI "Joystick is in Down\&. "
 .ti -1c
 .RI "#define \fBJstickUp\fP   5"
 .br
+.RI "Joystick is in Up\&. "
 .in -1c
 .SS "Functions"
 
@@ -63,45 +68,57 @@ C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/slave/slave.ino
 .ti -1c
 .RI "const int \fBL1\fP = 13"
 .br
+.RI "LED General Purpose\&. "
 .ti -1c
 .RI "const int \fBRGBB\fP = 12"
 .br
+.RI "RGB BLUE PIN\&. "
 .ti -1c
 .RI "const int \fBRGBG\fP = 11"
 .br
+.RI "RGB GREEN PIN\&. "
 .ti -1c
 .RI "const int \fBRGBR\fP = 10"
 .br
+.RI "RGB RED PIN\&. "
 .ti -1c
 .RI "const int \fBtrig2Master\fP = 6"
 .br
+.RI "Trigger Interrupt to Master\&. "
 .ti -1c
 .RI "unsigned char \fBcnt4ms\fP"
 .br
+.RI "Count 4ms Timer 2 triggers\&. "
 .ti -1c
 .RI "unsigned char \fBcnt40ms\fP"
 .br
+.RI "Count 40ms Timer 2 triggers\&. "
 .ti -1c
 .RI "AltSoftSerial \fBs\fP"
 .br
+.RI "Serial Port\&. "
 .ti -1c
 .RI "boolean \fBinMiddle\fP"
 .br
+.RI "Joystick Middle position\&. "
 .ti -1c
 .RI "unsigned char \fBcntMiddle\fP"
 .br
+.RI "Counter to count how much time it is in Middle Position\&. "
 .ti -1c
 .RI "unsigned char \fBrxState\fP"
 .br
+.RI "Serial Port State\&. "
 .ti -1c
 .RI "unsigned char \fBinChar\fP"
 .br
+.RI "Serial Port input character\&. "
 .in -1c
 .SH "Detailed Description"
 .PP 
 arduino slave file 
 
-This is the main for slave Nano controller, which handles the request/data from
+This is the file for slave Nano controller, which handles the request/data from
 .IP "\(bu" 2
 ESP8266
 .IP "\(bu" 2
@@ -123,28 +140,6 @@ Sajjad Hussain
 
 .PP
 Definition in file \fBslave\&.ino\fP\&.
-.SH "Macro Definition Documentation"
-.PP 
-.SS "#define JstickDown   4"
-Joystick is in Down 
-.PP
-Definition at line 28 of file slave\&.ino\&.
-.SS "#define JstickLeft   3"
-Joystick is in Left 
-.PP
-Definition at line 26 of file slave\&.ino\&.
-.SS "#define JstickMid   1"
-Joystick is in Middle 
-.PP
-Definition at line 22 of file slave\&.ino\&.
-.SS "#define JstickRight   2"
-Joystick is in Right 
-.PP
-Definition at line 24 of file slave\&.ino\&.
-.SS "#define JstickUp   5"
-Joystick is in Up 
-.PP
-Definition at line 30 of file slave\&.ino\&.
 .SH "Function Documentation"
 .PP 
 .SS "ISR (TIMER2_COMPA_vect)"
@@ -159,7 +154,7 @@ void
 .PP
 
 .PP
-Definition at line 130 of file slave\&.ino\&.
+Definition at line 137 of file slave\&.ino\&.
 .SS "ISR (TIMER2_COMPB_vect)"
 
 .PP
@@ -172,7 +167,7 @@ void
 .PP
 
 .PP
-Definition at line 196 of file slave\&.ino\&.
+Definition at line 203 of file slave\&.ino\&.
 .SS "void loop ()"
 
 .PP
@@ -185,7 +180,7 @@ void
 .PP
 
 .PP
-Definition at line 112 of file slave\&.ino\&.
+Definition at line 119 of file slave\&.ino\&.
 .SS "void sendCmd2Master (unsigned char cmd)"
 
 .PP
@@ -203,7 +198,7 @@ void
 .PP
 
 .PP
-Definition at line 212 of file slave\&.ino\&.
+Definition at line 219 of file slave\&.ino\&.
 .SS "void setRGBColor (unsigned char color)"
 
 .PP
@@ -235,7 +230,7 @@ Purple (turn red and blue on):
 .PP
 White (turn all the LEDs on): 
 .PP
-Definition at line 227 of file slave\&.ino\&.
+Definition at line 234 of file slave\&.ino\&.
 .SS "void setup ()"
 
 .PP
@@ -249,56 +244,6 @@ void
 
 .PP
 Definition at line 75 of file slave\&.ino\&.
-.SH "Variable Documentation"
-.PP 
-.SS "unsigned char cnt40ms"
-Count 40ms Timer 2 triggers 
-.PP
-Definition at line 55 of file slave\&.ino\&.
-.SS "unsigned char cnt4ms"
-Count 4ms Timer 2 triggers 
-.PP
-Definition at line 53 of file slave\&.ino\&.
-.SS "unsigned char cntMiddle"
-Counter to count how much time it is in Middle Position 
-.PP
-Definition at line 61 of file slave\&.ino\&.
-.SS "unsigned char inChar"
-Serial Port input character 
-.PP
-Definition at line 65 of file slave\&.ino\&.
-.SS "boolean inMiddle"
-Joystick Middle position 
-.PP
-Definition at line 59 of file slave\&.ino\&.
-.SS "const int L1 = 13"
-LED General Purpose 
-.PP
-Definition at line 35 of file slave\&.ino\&.
-.SS "const int RGBB = 12"
-RGB BLUE PIN 
-.PP
-Definition at line 37 of file slave\&.ino\&.
-.SS "const int RGBG = 11"
-RGB GREEN PIN 
-.PP
-Definition at line 39 of file slave\&.ino\&.
-.SS "const int RGBR = 10"
-RGB RED PIN 
-.PP
-Definition at line 41 of file slave\&.ino\&.
-.SS "unsigned char rxState"
-Serial Port State 
-.PP
-Definition at line 63 of file slave\&.ino\&.
-.SS "AltSoftSerial s"
-Serial Port 
-.PP
-Definition at line 57 of file slave\&.ino\&.
-.SS "const int trig2Master = 6"
-Trigger Interrupt to Master 
-.PP
-Definition at line 43 of file slave\&.ino\&.
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for IntEnseChoI from the source code\&.

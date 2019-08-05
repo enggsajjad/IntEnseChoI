@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['vibrationmode',['vibrationMode',['../userdefined_8h.html#a0c1dff64755e3c107de355f380ddcb8f',1,'userdefined.h']]],
-  ['voicefirstedge',['voiceFirstEdge',['../userdefined_8h.html#ac3de5946ad36e8c2ac6055d30d4cd215',1,'userdefined.h']]],
-  ['voiceholding',['voiceHolding',['../userdefined_8h.html#a8328b5d52c2ed7e23ea6b257da97045e',1,'userdefined.h']]],
-  ['voicekeyispressed',['VoiceKeyIsPressed',['../userdefined_8h.html#a323895a88a3252b09f0d9e7b4b72bd59',1,'userdefined.h']]],
-  ['voicekeypressed',['voiceKeyPressed',['../userdefined_8h.html#a90b7356c85a354e184a5fca3201a97cb',1,'userdefined.h']]]
+  ['udp',['Udp',['../userdefined_8h.html#ae2719168871b1327c58259f1d4c68577',1,'userdefined.h']]],
+  ['up',['up',['../images_8h.html#a5a26594f133315644245edd047e5cae2',1,'images.h']]],
+  ['userdefined_2eh',['userdefined.h',['../userdefined_8h.html',1,'']]]
 ];

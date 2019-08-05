@@ -1,5 +1,6 @@
-
-@file master.ino
+/**
+@file mainpage.h
+@brief main page readme file
 @mainpage INTELLIGENT ENVIRONMENT SECURES CHOICE OF INTERACTION (INTENSECHOI)
 @section intro_sec Introduction
 This the main page for the Haptic Controller which is the core of the project. It consists of two microcontrollers i.e. a master microcontroller and a slave microcontroller.
@@ -56,7 +57,10 @@ name=Scheduler                                            , version=0.4.4\n
 name=SparkFun Haptic Motor Driver                         , version=1.1.1 
 
 @subsection testing Testing
-Testing MQTT MEssages\n
+1. To debug different parts of the code, uncomment the line "#define RELEASE" in the file “userdefined.h”. There are some printings on the serial ports to debug different parts of the code.
+To see, these debug prints, uncomment this line.\n
+
+2. Testing MQTT MEssages\n
 MQTTBox: Test3\n
 Topic to publish: intensechoi/controller/set\n
 Topic to subscribe messages: intensechoi/controller/get\n
@@ -78,3 +82,4 @@ Written by TECO.edu and Chair for Pervasive Computing Systems (pcs.tm.kit.edu)
 This code belongs to teco.edu and must be reffered when used. BSD license, all text here must be included in any redistribution.
 
  @date 02.08.2019
+ */

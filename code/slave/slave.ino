@@ -2,7 +2,7 @@
  *  @file slave.ino
  *  @brief arduino slave file
  *  
- *  This is the main for slave Nano controller, which handles the request/data from
+ *  This is the file for slave Nano controller, which handles the request/data from
  *  - ESP8266
  *  - Joystick
  *  and perform output actions to:
@@ -18,28 +18,28 @@
 
 
 //*****************CONSTANTS/DEFINES*****************
-/** Joystick is in Middle */
+/// Joystick is in Middle 
 #define   JstickMid   1   
-/** Joystick is in Right */
+/// Joystick is in Right
 #define   JstickRight 2  
-/** Joystick is in Left */
+/// Joystick is in Left 
 #define   JstickLeft  3      
-/** Joystick is in Down */
+/// Joystick is in Down 
 #define   JstickDown  4      
-/** Joystick is in Up */
+/// Joystick is in Up
 #define   JstickUp    5     
 
 //*****************HARDWARE PINS*****************
 
-/** LED General Purpose */
+/// LED General Purpose 
 const int L1 = 13;
-/** RGB BLUE PIN  */
+/// RGB BLUE PIN  
 const int RGBB = 12; 
-/** RGB GREEN PIN  */
+/// RGB GREEN PIN  
 const int RGBG = 11;  
-/** RGB RED PIN  */
+/// RGB RED PIN  
 const int RGBR = 10;  
-/** Trigger Interrupt to Master  */
+/// Trigger Interrupt to Master  
 const int trig2Master = 6;  
 
 
@@ -49,19 +49,19 @@ void sendCmd2Master(unsigned char cmd);
 void setRGBColor(unsigned char color);
 
 //*****************GLOBAL VARIABLES*****************
-/** Count 4ms Timer 2 triggers */
+/// Count 4ms Timer 2 triggers 
 unsigned char cnt4ms;             
-/** Count 40ms Timer 2 triggers */
+/// Count 40ms Timer 2 triggers 
 unsigned char cnt40ms;             
-/** Serial Port */
+/// Serial Port 
 AltSoftSerial s; 
-/** Joystick Middle position */
+/// Joystick Middle position 
 boolean inMiddle;
-/** Counter to count how much time it is in Middle Position */
+/// Counter to count how much time it is in Middle Position 
 unsigned char cntMiddle;
-/** Serial Port State */
+/// Serial Port State 
 unsigned char rxState;  
-/** Serial Port input character */
+/// Serial Port input character 
 unsigned char inChar;   
 
 //*****************FUNCTION DEFINITIONS*****************

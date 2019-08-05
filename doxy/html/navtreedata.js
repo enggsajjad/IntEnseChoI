@@ -35,7 +35,6 @@ var NAVTREE =
       [ "Author", "index.html#author", null ],
       [ "License", "index.html#license", null ]
     ] ],
-    [ "main", "md__c_1__users__sajjad__documents__arduino__int_ense_cho_i__int_ense_cho_i_r8_code_master_main.html", null ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [

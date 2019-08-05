@@ -4,6 +4,7 @@ var searchData=
   ['client',['client',['../userdefined_8h.html#a068a04f89f8c4b3979bcd88bf143f5cf',1,'userdefined.h']]],
   ['cnt40ms',['cnt40ms',['../slave_8ino.html#ae5706ef178bfd4a28331580ac6775816',1,'slave.ino']]],
   ['cnt4ms',['cnt4ms',['../slave_8ino.html#ac5d1ffdf8d27a1d426758f404490cf9f',1,'slave.ino']]],
+  ['cntdispscreentime',['cntDispScreenTime',['../userdefined_8h.html#a4f12d752263415fdaf148cf822014962',1,'userdefined.h']]],
   ['cntmiddle',['cntMiddle',['../slave_8ino.html#a74b7512e5d4ca1d133f9179dc3a52474',1,'slave.ino']]],
   ['cntms',['cntms',['../userdefined_8h.html#ae3e0983dccd1c1051b0c4209472b740c',1,'userdefined.h']]],
   ['contextdevice',['contextDevice',['../userdefined_8h.html#a22787a268139c75c5d2c0271874b77d9',1,'userdefined.h']]],

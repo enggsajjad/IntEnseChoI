@@ -10,7 +10,9 @@
  *  @date 02.08.2019
  */
 
-/////////////////////////////INCLUDE FILES////////////
+//**********************INCLUDE FILES******************************
+
+//#define RELEASE // uncomment to switch servers to release version, enable sending to madavi and luftdaten.info, and supress some debug output
 
 #include <ESP8266WiFi.h>
 #include <Ticker.h>           // Ticker Library
@@ -22,129 +24,216 @@
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 #include <WiFiUdp.h>
-#include "images.h"           /// Include custom images
+#include "images.h"           // Include custom images
 #include "Adafruit_DRV2605.h"
 #include <Adafruit_LSM9DS1.h>
 
-/////////////////////////////CONSTANTS/DEFINES////////
+//***************************CONSTANTS/DEFINES*************************************
+///Debounce time (ms) for push buttons
+#define DEBOUNCE_TIME 10   
+///Holdtime time start after these (ms) for push buttons                   
+#define HOLDSTART_TIME 1000                   
+///mqqt port                        
+#define mqtt_port 1883 
+///mqtt user (option)
+#define MQTT_USER "Sajjad"       
+///mqtt password (option)             
+#define MQTT_PASSWORD "#sajjan2"              
+///mqtt channel to publish audio messages
+#define PUBLISH__AUDIO_CH "intensechoi/controller/audio"  
+///mqtt channel to publish normal messages
+#define PUBLISH_CH "intensechoi/controller/get"           
+///mqtt channel to subcribe for normal messages
+#define SUBSCRIBE_CH "intensechoi/controller/set"         
 
-#define DEBOUNCE_TIME 10                      ///Debounce time (ms) for push buttons
-#define HOLDSTART_TIME 1000                   ///Holdtime time start after these (ms) for push buttons
-//#define mqtt_port 1883                        ///mqqt port
-#define mqtt_port 1883                        ///mqqt port
-#define MQTT_USER "Sajjad"                    ///mqtt user (option)
-#define MQTT_PASSWORD "#sajjan2"              ///mqtt password (option)
-#define PUBLISH__AUDIO_CH "intensechoi/controller/audio"  //mqtt channel to publish audio messages
-#define PUBLISH_CH "intensechoi/controller/get"           //mqtt channel to publish normal messages
-#define SUBSCRIBE_CH "intensechoi/controller/set"         //mqtt channel to subcribe for normal messages
 
-
-/////////////////////////////GLOBAL VARIABLES/////////
-
-//const char* mqtt_server = "broker.mqtt-dashboard.com";    //mqtt broker, may be different
-const char* mqtt_server = "broker.hivemq.com";    //mqtt broker, may be different
+//***********************GLOBAL VARIABLES**************************
+///mqtt broker, may be different
+const char* mqtt_server = "broker.mqtt-dashboard.com";    
+//const char* mqtt_server = "broker.hivemq.com";   //mqtt broker, http://www.hivemq.com/demos/websocket-client/ 
 //const char* mqtt_server = "192.168.178.33";    //mqtt broker, may be different
-// Update these with values suitable for your network.
-//const char* ssid = "UPC0870375";                /// Your Wifi SSID
-const char* ssid ="tecoLecture";                /// Your Wifi SSID
-//const char* password = "Ghnfdd6byuxp";                /// Your Wifi Password
-const char* password = "PerComSS16";                /// Your Wifi Password
+/// Your Wifi SSID
+const char* ssid = "UPC0870375";                
+//const char* ssid ="tecoLecture"; 
+/// Your Wifi Password               
+const char* password = "Ghnfdd6byuxp";                
+//const char* password = "PerComSS16";                
 
 
 
-
-unsigned char wState;         ///States for incomming MQTT messages
-WiFiClient wifiClient;        ///Your WiFi Client
-String arr[9];                ///Array of hold a device and 8 mappings in the recieved MQTT message
-String device[8]={"light", "tv", "-", "thermo", "-","window", "-", "-"}; ///Array of 8 mapped device from the recieved MQTT message
-String actions[8]={"on", "off", "red", "blue", "green","dim", "-", "-"};///Array of 8 mapped actions from the recieved MQTT message
-String mapDevice[1] = {device[0]};    ///Selected device from the MQTT Messages
-String mapAction[1] = {actions[0]};    ///Selected action from the MQTT Messages
-String contextDevice[1] = {device[0]};  ///contexed device from the MQTT Messages
-
-boolean moveEvent;              ///Joystick or Accelerometer differnt move events
-unsigned char rxState;          ///Serial Port states, to handle
-unsigned char btnState=0;       ///Push Button States, to handle clicked, released, hold and hold end
-unsigned char rxData;                   ///Serial Port recieved character
-boolean secondScreen;                   ///handles two screens of the display to cater 8 device/actions
-unsigned char optIndex;                 ///moveEvent index
-unsigned char displayMode=10;           ///handles different display modes/screens 1,2,3,4
-unsigned char vibrationMode=-1;         ///handles different vibration modes, 1,2,3,4
-unsigned char buzzerMode=-1;            ///handles different buzzer moder 1,2,3,4
-unsigned char oldDisplayMode=10;        ///older display modes/screens
-unsigned char oldVibrationMode=-1;      ///older vibration modes,
-unsigned char oldBuzzerMode=-1;         ///older buzzer moder
-static unsigned char aud[40960];        ///Microphone Audio Buffer read from ADC
-char audMQTT[128];                    ///Microphone Audio Buffer to be sent to MQTT
-static unsigned int cnt125us;           ///Count 125us samples from microphone
-boolean recDone;              ///Recording is done
-boolean recording;            ///Start recording
-boolean rxflag=false;         /// if there is a serial character
-boolean rxValid=false;        /// if this serial character is valid
-static int pktInx;            /// Audio packet index
-static int pktCnt;            /// Audio packet counting
-unsigned char gState =0;      /// handles accelerometers statemachine
-unsigned char cntms=0;        /// counts accelerometers logging time
-unsigned char curDirection;   /// accelerometers current direction
-const int numReadings = 25;   ///number of readings to average out the accelerometer readings
-const int numAxis =3;         ///number of axis of accelerometers
-float readings[numAxis][numReadings];  ///  the accelerometer reading history
-int readIndex[numAxis];              /// the accelerometer index of the current reading
-float total[numAxis];                  /// the accelerometer running total
-float average[numAxis];                /// the accelerometer average
-float axm;          /// mapped acclerometer x axis value
-float aym;          /// mapped acclerometer y axis value
-float azm;          /// mapped acclerometer z axis value
-sensors_event_t a, m, g;  ///sensor event for accelerometer, magnetometer and gyroscope
-unsigned long pre25ms;    /// previous values of 25ms logged
-unsigned long pre500ms;    /// previous values of 500ms logged
-unsigned long pre3000ms;    /// previous values of 3000ms logged
+///States for incomming MQTT messages
+unsigned char wState;         
+///Your WiFi Client
+WiFiClient wifiClient;        
+///Array of hold a device and 8 mappings in the recieved MQTT message
+String arr[9];                
+///Array of 8 mapped device from the recieved MQTT message
+String device[8]={"light", "tv", "-", "thermo", "-","window", "-", "-"}; 
+///Array of 8 mapped actions from the recieved MQTT message
+String actions[8]={"on", "off", "red", "blue", "green","dim", "-", "-"};
+///Selected device from the MQTT Messages
+String mapDevice[1] = {device[0]};    
+///Selected action from the MQTT Messages
+String mapAction[1] = {actions[0]};    
+///contexed device from the MQTT Messages
+String contextDevice[1] = {device[0]};  
+///Joystick or Accelerometer differnt move events
+boolean moveEvent;              
+///Serial Port states, to handle
+unsigned char rxState;          
+///Push Button States, to handle clicked, released, hold and hold end
+unsigned char btnState=0;       
+///Serial Port recieved character
+unsigned char rxData;                   
+///handles two screens of the display to cater 8 device/actions
+boolean secondScreen;                   
+///moveEvent index
+unsigned char optIndex;                 
+///handles different display modes/screens 1,2,3,4
+unsigned char displayMode=10;           
+///handles different vibration modes, 1,2,3,4
+unsigned char vibrationMode=-1;         
+///handles different buzzer moder 1,2,3,4
+unsigned char buzzerMode=-1;            
+///older display modes/screens
+unsigned char oldDisplayMode=10;        
+///older vibration modes,
+boolean oldVibrationMode=-1;      
+///older buzzer moder
+boolean oldBuzzerMode=-1;         
+///Count the time in a screen mode
+unsigned char cntDispScreenTime;        
+///Microphone Audio Buffer read from ADC
+static unsigned char aud[40960];        
+///Microphone Audio Buffer to be sent to MQTT
+char audMQTT[128];                    
+///Count 125us samples from microphone
+static unsigned int cnt125us;           
+///Recording is done
+boolean recDone;              
+///Start recording
+boolean recording;            
+/// if there is a serial character
+boolean rxflag=false;         
+/// if this serial character is valid
+boolean rxValid=false;        
+/// Audio packet index
+static int pktInx;            
+/// Audio packet counting
+static int pktCnt;            
+/// handles accelerometers statemachine
+unsigned char gState =0;      
+/// counts accelerometers logging time
+unsigned char cntms=0;        
+/// accelerometers current direction
+unsigned char curDirection;   
+///number of readings to average out the accelerometer readings
+const int numReadings = 5;   
+///number of axis of accelerometers
+const int numAxis =3;         
+///  the accelerometer reading history
+float readings[numAxis][numReadings];  
+/// the accelerometer index of the current reading
+int readIndex[numAxis];              
+/// the accelerometer running total
+float total[numAxis];                  
+/// the accelerometer average
+float average[numAxis];                
+/// mapped acclerometer x axis value
+float axm;          
+/// mapped acclerometer y axis value
+float aym;          
+/// mapped acclerometer z axis value
+float azm;          
+///sensor event for accelerometer
+sensors_event_t a; 
+///sensor event for magnetomete
+sensors_event_t m; 
+///sensor event for gyroscope
+sensors_event_t g;  
+/// previous values of 25ms logged
+unsigned long pre25ms;    
+/// previous values of 500ms logged
+unsigned long pre500ms;    
+/// previous values of 3000ms logged
+unsigned long pre3000ms;    
+/// previous values of 4000ms logged
+unsigned long pre4000ms;    
+/// publish another action when holding action button >4s
+boolean anotherAction=false; 
 
 // variable used for the key press
-volatile boolean contextKeyPressed = false;   ///if Context Push Button is pressed?
-volatile boolean contextFirstEdge = false;    ///if Context Push Button gives first edge?
-volatile boolean contextHolding = false;      ///if Context Push Button starts holding?
-volatile boolean voiceKeyPressed = false;   ///if voice Push Button is pressed?
-volatile boolean voiceFirstEdge = false;    ///if voice Push Button gives first edge?
-volatile boolean voiceHolding = false;      ///if voice Push Button starts holding?
-volatile boolean actionKeyPressed = false;   ///if action Push Button is pressed?
-volatile boolean actionFirstEdge = false;   ///if action Push Button gives first edge?
-volatile boolean actionHolding = false;      ///if action Push Button starts holding?
+///if Context Push Button is pressed?
+volatile boolean contextKeyPressed = false;   
+///if Context Push Button gives first edge?
+volatile boolean contextFirstEdge = false;    
+///if Context Push Button starts holding?
+volatile boolean contextHolding = false;      
+///if voice Push Button is pressed?
+volatile boolean voiceKeyPressed = false;   
+///if voice Push Button gives first edge?
+volatile boolean voiceFirstEdge = false;    
+///if voice Push Button starts holding?
+volatile boolean voiceHolding = false;      
+///if action Push Button is pressed?
+volatile boolean actionKeyPressed = false;   
+///if action Push Button gives first edge?
+volatile boolean actionFirstEdge = false;   
+///if action Push Button starts holding?
+volatile boolean actionHolding = false;      
 
 // variable used for the debounce
-unsigned long timeContextKeyPress = 0;      ///occurance time of Context key pressed
-unsigned long timeContextLastPress = 0;      ///last occurance time of Context key pressed
-unsigned long timeVoiceKeyPress = 0;      ///occurance time of Voice key pressed
-unsigned long timeVoiceLastPress = 0;      ///last occurance time of Voice key pressed
-unsigned long timeActionKeyPress = 0;      ///occurance time of Action key pressed
-unsigned long timeActionLastPress = 0;      ///last occurance time of Action key pressed
+///occurance time of Context key pressed
+unsigned long timeContextKeyPress = 0;      
+///last occurance time of Context key pressed
+unsigned long timeContextLastPress = 0;      
+///occurance time of Voice key pressed
+unsigned long timeVoiceKeyPress = 0;      
+///last occurance time of Voice key pressed
+unsigned long timeVoiceLastPress = 0;      
+///occurance time of Action key pressed
+unsigned long timeActionKeyPress = 0;      
+///last occurance time of Action key pressed
+unsigned long timeActionLastPress = 0;      
+
+/// handles the states of Context button
+boolean swContextState;         
+/// handles the states of Voice button
+boolean swVoiceState;         
+/// handles the states of Action button
+boolean swActionState;         
 
 
-boolean swContextState;         /// handles the states of Context button
-boolean swVoiceState;         /// handles the states of Voice button
-boolean swActionState;         /// handles the states of Action button
 
+/// instance of Wifi Client
+PubSubClient client(wifiClient);   
+/// instance of UDP Packet transmission to test audio
+WiFiUDP Udp;                        
+/// instance of driver motor
+Adafruit_DRV2605 drv;               
+/// instance of accelerometer gyroscope and magnetometer
+Adafruit_LSM9DS1 lsm = Adafruit_LSM9DS1();
+/// Serial port with Rx,Tx pins
+SoftwareSerial s(4,0);                    
+/// I2C Interface with Address, SDA, SCL
+SSD1306Wire  oled(0x3d, 2, 14);           
 
+//**********************************HARDWARE PINS*************************************
 
+/// Context Push Button
+const int swContext = 12;  
+/// Voice Push Button   
+const int swVoice = 13;     
+/// Action Push Button
+const int swAction = 5;     
+/// pasive buzzer pin
+const int buzzerPin = 16;   
+///trigger interrupt from the slave
+const int interruptPin = 15;  
+///microphone input
+const int mic = A0;           
 
-PubSubClient client(wifiClient);    /// instance of Wifi Client
-WiFiUDP Udp;                        /// instance of UDP Packet transmission to test audio
-Adafruit_DRV2605 drv;               /// instance of driver motor
-Adafruit_LSM9DS1 lsm = Adafruit_LSM9DS1();/// instance of accelerometer gyroscope and magnetometer
-SoftwareSerial s(4,0);                    /// Serial port with Rx,Tx pins
-SSD1306Wire  oled(0x3d, 2, 14);           /// I2C Interface with Address, SDA, SCL
-
-/////////////////////////////HARDWARE PINS////////////
-
-
-const int swContext = 12;     /// Context Push Button
-const int swVoice = 13;     /// Voice Push Button
-const int swAction = 5;     /// Action Push Button
-const int buzzerPin = 16;   /// pasive buzzer pin
-const int interruptPin = 15;  ///trigger interrupt from the slave
-const int mic = A0;           ///microphone input
-
-/////////////////////////////FUNCTION PROTOTYPES//////
+//*****************************FUNCTION PROTOTYPES*******************************
 
 
 int frequency(char note);
@@ -167,16 +256,18 @@ void setup_lsm9ds1(void);
 void read_lsm9ds1(void);
 void setup_drv2605(void);
 void setup_oled(void);
-void readMic();
-void refreshOLED();
-void refreshSubscribe();
-//void subscribing(String devState, String actState = "NULL");
+void readMic(void);
+///call this function again and again, using Ticker
+void refreshOLED(void);
+void refreshSubscribe(void);
+//void publishing(String devState, String actState = "NULL");
+///timer for adc sample
 Ticker tmrMic(readMic, 120, 0, MICROS_MICROS);//125
 //Ticker tmrMic(readMic, 128, 0, MICROS_MICROS);
 
 
 
-/////////////////////////////FUNCTION DEFINITIONS/////
+//**************************FUNCTION DEFINITIONS*****************************
 
 /**************************************************************************/
 /*!
@@ -186,8 +277,8 @@ Ticker tmrMic(readMic, 120, 0, MICROS_MICROS);//125
     @returns void
 */
 /**************************************************************************/
-//sending a subscribe message to MQTT
-void subscribing(String devState, String actState = "NULL")
+//sending a message to MQTT
+void publishing(String devState, String actState = "NULL")
 {
 StaticJsonBuffer<300> JSONbuffer;
 JsonObject& JSONencoder = JSONbuffer.createObject();
@@ -196,7 +287,7 @@ char JSONmessageBuffer[50];
   if (actState!= "NULL")
     JSONencoder["cmd"] = actState;
   JSONencoder.printTo(JSONmessageBuffer, sizeof(JSONmessageBuffer));
-  Serial.println("Sending message to MQTT topic..");
+  //Serial.println("Sending message to MQTT topic..");
   Serial.println(JSONmessageBuffer);
  
   if (client.publish(PUBLISH_CH, JSONmessageBuffer) == true) 
@@ -214,7 +305,6 @@ char JSONmessageBuffer[50];
     @returns void
 */
 /**************************************************************************/
-
 void setup_lsm9ds1(void)
 {
 	// Try to initialise and warn if we couldn't detect the chip
@@ -243,7 +333,6 @@ void setup_lsm9ds1(void)
     @returns void
 */
 /**************************************************************************/
-
 void read_lsm9ds1(void)
 {
   lsm.read();  // ask it to read in the data 
@@ -261,12 +350,12 @@ void read_lsm9ds1(void)
   switch(gState)
   {
     case 0:
-        if(average[0]<-2)
+        if(average[0]<-3)
         {
           curDirection = 1;//left
           //Serial.println("One");
         }
-        if(average[0]>2)
+        if(average[0]>1.5)
         {
           curDirection = 2;//right
           //Serial.println("Two");
@@ -276,15 +365,15 @@ void read_lsm9ds1(void)
           curDirection = 3;//away
           //Serial.println("Three");
         }
-        if(average[2]>2)
+        if(average[2]>3)
         {
           curDirection = 4;//closer
           //Serial.println("Four");
         }
         if (curDirection>0) gState = 1;
-      break;
+        break;
     case 1:
-      if(cntms==40)
+      if(cntms==20)
       {
         curDirection = 0;
         gState = 0;
@@ -296,10 +385,13 @@ void read_lsm9ds1(void)
         switch(curDirection)
         {
           case 1:
-            if(average[0]>1.5) 
+            if(average[0]>1) 
             {
-              Serial.println("left");
-              optIndex = 7;
+              #ifndef RELEASE
+                Serial.println("Acc.down");
+              #endif
+              buzzerMode = 2;oldBuzzerMode=true;
+              optIndex = 6;
               moveEvent = true;
               curDirection = 0; 
               gState = 0; 
@@ -309,8 +401,11 @@ void read_lsm9ds1(void)
           case 2: 
             if(average[0]<-2)  
             {
-              Serial.println("right");
-              optIndex = 8;
+              #ifndef RELEASE
+                Serial.println("Acc.up");
+              #endif
+              buzzerMode = 2;oldBuzzerMode=true;
+              optIndex = 5;
               moveEvent = true;
               curDirection = 0; 
               gState = 0; 
@@ -320,8 +415,11 @@ void read_lsm9ds1(void)
           case 3: 
             if(average[2]>2)  
             {
-              Serial.println("away");
-              optIndex = 5;
+              #ifndef RELEASE
+                Serial.println("Acc.left");
+              #endif
+              buzzerMode = 2;oldBuzzerMode=true;
+              optIndex = 8;
               moveEvent = true;
               curDirection = 0; 
               gState = 0; 
@@ -329,10 +427,13 @@ void read_lsm9ds1(void)
             } 
             break;
           case 4: 
-            if(average[2]<-2.5) 
+            if(average[2]<-2) 
             {
-              Serial.println("close");
-              optIndex = 6;
+              #ifndef RELEASE
+                Serial.println("Acc.right");
+              #endif
+              buzzerMode = 2;oldBuzzerMode=true;
+              optIndex = 7;
               moveEvent = true;
               curDirection = 0; 
               gState = 0; 
@@ -373,7 +474,7 @@ void setup_oled(void)
     // Initialising the UI will init the display too.
   
   oled.init();
-  oled.flipScreenVertically();
+  //oled.flipScreenVertically();
   oled.setFont(ArialMT_Plain_10);
   //Testing icons and texts
   oled.clear();
@@ -412,27 +513,42 @@ void processRxInput(void)
   switch(rxData)
   {
     case 1://JoyStick Middle
-      Serial.println("JMid");
+      #ifndef RELEASE
+        Serial.println("Jstick.Mid");
+      #endif
+      buzzerMode = 3;oldBuzzerMode=true;
       break;
     case 2://JoyStick Right
-      optIndex = 4;
-      moveEvent = true;
-      Serial.println("JRight");
-      break;
-    case 3://JoyStick Left
       optIndex = 3;
       moveEvent = true;
-      Serial.println("JLeft");
+      #ifndef RELEASE
+        Serial.println("Jstick.Right");
+      #endif
+      buzzerMode = 3;oldBuzzerMode=true;
+      break;
+    case 3://JoyStick Left
+      optIndex = 4;
+      moveEvent = true;
+      #ifndef RELEASE
+        Serial.println("Jstick.Left");
+      #endif
+      buzzerMode = 3;oldBuzzerMode=true;
       break;
     case 4://JoyStick Down
       optIndex = 2;
       moveEvent = true;
-      Serial.println("JDown");
+      #ifndef RELEASE
+        Serial.println("Jstick.Down");
+      #endif
+      buzzerMode = 3;oldBuzzerMode=true;
       break;
     case 5://JoyStick Up
       optIndex = 1;
       moveEvent = true;
-      Serial.println("JUp");
+      #ifndef RELEASE
+        Serial.println("Jstick.Up");
+      #endif
+      buzzerMode = 3;oldBuzzerMode=true;
       break;
     default:
       break;
@@ -445,11 +561,13 @@ void processRxInput(void)
     @returns void
 */
 /**************************************************************************/
-
 void ICACHE_RAM_ATTR SerialTriggerISR() 
 {
   rxflag=true;  // rxState = 0;
-  Serial.print("T");
+  //#ifndef RELEASE
+  //  Serial.println("T");
+  //#endif
+
 }
 /**************************************************************************/
 /*!
@@ -457,7 +575,6 @@ void ICACHE_RAM_ATTR SerialTriggerISR()
     @returns void
 */
 /**************************************************************************/
-
 void processButtons(void)
 {
      switch(btnState)
@@ -488,10 +605,13 @@ void processButtons(void)
                     if(moveEvent)
                     {
                       moveEvent = false;
-                      subscribing(device[optIndex-1]);
-                      Serial.println("subscribing device");
+                      publishing(device[optIndex-1]);
+                      #ifndef RELEASE
+                      Serial.println("publishing device");
+                      #endif
+                      mapDevice[0]=device[optIndex-1];
                       displayMode = 2;
-                      vibrationMode = 2;
+                      vibrationMode = 2;oldVibrationMode =true;
                       wState = 4;
                     }
                   }
@@ -503,15 +623,19 @@ void processButtons(void)
                   //contextPress = true;
                   if(wState==1)
                   {
-                    subscribing("pointing");
-                    Serial.println("subscribing pointing");
-                    vibrationMode = 2;
+                    publishing("pointing");
+                    #ifndef RELEASE
+                    Serial.println("publishing pointing");
+                    #endif
+                    vibrationMode = 2;oldVibrationMode =true;
                     wState = 2;
-                  }else if(wState==6)
+                  }else if((wState==3) || (wState==5))// 6)
                   {
-                    Serial.println("subscribing none");
-                    subscribing("none");
-                    vibrationMode = 0;
+                    #ifndef RELEASE
+                    Serial.println("publishing none");
+                    #endif
+                    publishing("none");
+                    vibrationMode = 0;oldVibrationMode =true;
                     
                     wState = 0;
                   }
@@ -556,8 +680,8 @@ void processButtons(void)
                   //timer1_disable();
                   tmrMic.stop();
                   recDone = true;
-                  vibrationMode = 2;
-                  buzzerMode = 3;
+                  vibrationMode = 2;oldBuzzerMode=true;
+                  buzzerMode = 3;oldVibrationMode=true;
                 }else
                 {
 				  //================== Key un-Pressed is detected. =================================
@@ -584,8 +708,8 @@ void processButtons(void)
           //timer1_enable(TIM_DIV16, TIM_EDGE, TIM_SINGLE);//80MHz/16=5MHz
           //timer1_write(625); //125us=.2us x 625
           //tmrMic.start();
-          vibrationMode = 2;
-          buzzerMode = 2;
+          vibrationMode = 2;oldVibrationMode=true;
+          buzzerMode = 2;oldBuzzerMode=true;
           Serial.println("V.Hold");//Key Holding starts here
           voiceHolding = true;
           btnState = 0;
@@ -615,9 +739,12 @@ void processButtons(void)
                     if(moveEvent)
                     {
                       moveEvent = false;
-                      subscribing(mapDevice[0],actions[optIndex-1]);
-                      Serial.println("subscribing action");
+                      publishing(mapDevice[0],actions[optIndex-1]);
+                      #ifndef RELEASE
+                      Serial.println("publishing action");
+                      #endif
                       mapAction[0]=actions[optIndex-1];
+
                       displayMode = 4;
                       wState = 6;
                     }
@@ -643,9 +770,11 @@ void processButtons(void)
        if ( millis() - timeActionLastPress >= HOLDSTART_TIME)
        {
           //================== Key Holding starts here =================================
-		  Serial.println("A.Hold");//Key Holding starts here
+		      Serial.println("A.Hold");//Key Holding starts here
           //tmrAction.start();
+          pre4000ms = millis();
           actionHolding = true;
+          anotherAction = true;
           btnState = 0;
        }
       break;
@@ -661,8 +790,6 @@ void processButtons(void)
     @returns void
 */
 /**************************************************************************/
-
-
 void ICACHE_RAM_ATTR ContextKeyIsPressed()
 {
    btnState = 1;
@@ -673,7 +800,6 @@ void ICACHE_RAM_ATTR ContextKeyIsPressed()
     @returns void
 */
 /**************************************************************************/
-
 void ICACHE_RAM_ATTR VoiceKeyIsPressed()
 {
    btnState = 3;
@@ -684,7 +810,6 @@ void ICACHE_RAM_ATTR VoiceKeyIsPressed()
     @returns void
 */
 /**************************************************************************/
-
 void ICACHE_RAM_ATTR ActionKeyIsPressed()
 {
    btnState = 5;
@@ -710,11 +835,12 @@ void ICACHE_RAM_ATTR readMic()
     @returns void
 */
 /**************************************************************************/
-
 void refreshSubscribe()
 {
-  subscribing(mapDevice[0],actions[optIndex-1]);
-  Serial.println("subscribing action");
+  publishing(mapDevice[0],actions[optIndex-1]);
+  #ifndef RELEASE
+  Serial.println("publishing action");
+  #endif
   mapAction[0]=actions[optIndex-1];
   displayMode = 4;
   wState = 6;
@@ -726,7 +852,6 @@ void refreshSubscribe()
     @returns void
 */
 /**************************************************************************/
-
 void refreshOLED1()
 {
   //digitalWrite(RGBG, !(digitalRead(RGBG)));  //Invert Current State of LED  
@@ -744,12 +869,14 @@ void callback(char* topic, byte *payload, unsigned int length)
 {
   char tt;
   //print recevied messages on the serial console
-  Serial.println("-------new message from broker1-----");
+  #ifndef RELEASE
+  Serial.println("-------new message from broker-----");
   Serial.print("channel:");
   Serial.println(topic);
   Serial.print("data:");  
   Serial.write(payload, length);
   Serial.println();
+  #endif
   switch(wState)
   {
     case 0:
@@ -757,16 +884,17 @@ void callback(char* topic, byte *payload, unsigned int length)
       for (tt = 0; tt < 8; tt++) //Iterate through results
       {
         device[tt] = arr[tt];
-        Serial.print(tt,DEC);Serial.print(" ");Serial.println(arr[tt]);
+          #ifndef RELEASE
+          Serial.print(tt,DEC);Serial.print(" ");Serial.println(arr[tt]);
+          #endif
       }
       mapDevice[0]=arr[8];
       if(mapDevice[0] == "none")
       {
-          Serial.println(" found");
-          //tmrOLED.start();
+          //Serial.println(" found");
           displayMode = 1;
-          vibrationMode = 0;
-          buzzerMode = 0;
+          vibrationMode = 0;oldVibrationMode =true;
+          buzzerMode = 0;oldBuzzerMode =true;
           wState = 1;
       }
       break;
@@ -775,45 +903,48 @@ void callback(char* topic, byte *payload, unsigned int length)
       for (tt = 0; tt < 8; tt++) //Iterate through results
       {
         actions[tt] = arr[tt];
+        #ifndef RELEASE
         Serial.print(tt,DEC);Serial.print(" ");Serial.println(arr[tt]);
+        #endif
       }
       mapDevice[0]=arr[8];
       if(mapDevice[0] == "none")
       {
-          Serial.println("none found");
+          //Serial.println("none found");
           displayMode = 1;
-          vibrationMode = 1;
+          vibrationMode = 1;oldVibrationMode =true;
           wState = 0;
       }else
       {
-          Serial.println("actions found");
+          //Serial.println("actions found");
           displayMode = 3;
-          vibrationMode = 3;
+          vibrationMode = 3;oldVibrationMode =true;
           wState = 3;
       }
-      //subscribing("light", "up");
+      //publishing("light", "up");
       break;
     case 4:
       parsing(payload);
       for (tt = 0; tt < 8; tt++) //Iterate through results
       {
         actions[tt] = arr[tt];
+        #ifndef RELEASE
         Serial.print(tt,DEC);Serial.print(" ");Serial.println(arr[tt]);
+        #endif
       }
       mapDevice[0]=arr[8];
       if(mapDevice[0] == "none")
       {
-          Serial.println("none found");
+          //Serial.println("none found");
           displayMode = 1;
           wState = 0;
       }else
       {
-          Serial.println("actions found");
+          //Serial.println("actions found");
           displayMode = 3;
-          vibrationMode = 3;
+          vibrationMode = 3;oldVibrationMode =true;
           wState = 5;
       }
-      //subscribing("light", "up");
       break;
   }
 
@@ -826,7 +957,6 @@ void callback(char* topic, byte *payload, unsigned int length)
     @returns void
 */
 /**************************************************************************/
-
 void setDisplayMode(unsigned char om)
 {
 
@@ -909,6 +1039,7 @@ void setDisplayMode(unsigned char om)
       oled.drawString(21, 0, mapDevice[0]);
     
       oled.display();
+      
       break;
     case 8:
       oled.clear();
@@ -942,6 +1073,7 @@ void setDisplayMode(unsigned char om)
       oled.drawString(21, 8, "Befehl");
       oled.drawString(21, 32, mapAction[0]);
       oled.display();
+      cntDispScreenTime++;
       break;
     default:
       break;
@@ -1000,7 +1132,7 @@ while (!client.connected())
     Serial.println("connected");
     //Once connected, publish an announcement...
 
-    subscribing("none");
+    publishing("none");
     // ... and resubscribe
     client.subscribe(SUBSCRIBE_CH);
     //Serial.println("debug1");
@@ -1032,14 +1164,14 @@ void parsing( byte *payload)
   JsonObject& message = jsonBuffer.parseObject((char *)payload);
   if (!message.success()) 
   {
+    #ifndef RELEASE
     Serial.println("JSON parse failed");  
+    #endif
     return;
   }
-  //const char * device = message["device"]; //Get sensor type value
   String device1 = message["device"]; //Get sensor type value
   arr[8] = device1;
-  //dev = (char *)device;
-  //Serial.print("device type: ");
+
   for ( i = 0; i < 8; i++) 
   { //Iterate through results
     String mappingValue = message["mapping"][i];  //Implicit cast
@@ -1181,7 +1313,6 @@ void setVibrationMode(unsigned char vm)
     @returns void
 */
 /**************************************************************************/
-
 void smooth(int axis, float val) 
 {
     // pop and subtract the last reading:

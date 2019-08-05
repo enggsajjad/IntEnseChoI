@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['oldbuzzermode',['oldBuzzerMode',['../userdefined_8h.html#a320c6e742344b0b5cb6df05c5cc59285',1,'userdefined.h']]],
-  ['olddisplaymode',['oldDisplayMode',['../userdefined_8h.html#ac77e3add5708e9bea2b81156ccfea34b',1,'userdefined.h']]],
-  ['oldvibrationmode',['oldVibrationMode',['../userdefined_8h.html#a8c8501a077660fcbc2a8a12b54615b6d',1,'userdefined.h']]],
-  ['oled',['oled',['../userdefined_8h.html#ae6fc8652328c9ce09926c98697038447',1,'userdefined.h']]],
-  ['optindex',['optIndex',['../userdefined_8h.html#a92af44b3035f287691fba116fda727dd',1,'userdefined.h']]]
+  ['numaxis',['numAxis',['../userdefined_8h.html#a8ebdef4cc500225363cfaec78e882de4',1,'userdefined.h']]],
+  ['numreadings',['numReadings',['../userdefined_8h.html#a6e87dc4f50c99331c8eea4a016d5b3c8',1,'userdefined.h']]]
 ];

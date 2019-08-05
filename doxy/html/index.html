@@ -155,7 +155,10 @@ name=Scheduler , version=0.4.4<br />
 name=SparkFun Haptic Motor Driver , version=1.1.1</p>
 <h2><a class="anchor" id="testing"></a>
 Testing</h2>
-<p>Testing MQTT MEssages<br />
+<ol type="1">
+<li>To debug different parts of the code, uncomment the line "#define RELEASE" in the file “userdefined.h”. There are some printings on the serial ports to debug different parts of the code. To see, these debug prints, uncomment this line.<br />
+</li>
+<li>Testing MQTT MEssages<br />
 MQTTBox: Test3<br />
 Topic to publish: intensechoi/controller/set<br />
 Topic to subscribe messages: intensechoi/controller/get<br />
@@ -167,7 +170,8 @@ Password: "#sajjan"<br />
 Examples:<br />
  {"device": "none", "mapping": ["light", "thermo", "fan","-", "window", "-","-", "tv"]}<br />
  {"device": "light", "mapping": ["up", "down", "open","-", "close", "-","-", "dim"]}<br />
- </p>
+ </li>
+</ol>
 <h1><a class="anchor" id="author"></a>
 Author</h1>
 <p>Written by TECO.edu and Chair for Pervasive Computing Systems (pcs.tm.kit.edu)</p>

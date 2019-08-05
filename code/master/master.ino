@@ -2,7 +2,7 @@
  *  @file master.ino
  *  @brief arduino master file
  *  
- *  This is the main for master ESP8266 controller, which handles the request/data from
+ *  This is the file for master ESP8266 controller, which handles the request/data from
  *  - Wifi
  *  - push buttons (3)
  *  - Joystick
@@ -118,7 +118,7 @@ void loop()
     {
       rxflag = false;
       rxData = s.read();
-      Serial.println(rxData);
+      //Serial.println(rxData);
       processRxInput();
     }
   }
@@ -128,22 +128,24 @@ void loop()
   client.loop();
 
   //Recording Audio
-  //yield();
+
   if(recording)
   {
     recording = false;
+    #ifndef RELEASE
     Serial.println("Start Speaking");
-    //delay(2000);
-    //timer1_enable(TIM_DIV16, TIM_EDGE, TIM_SINGLE);//80MHz/16=5MHz
-    //timer1_write(625); //125us=.2us x 625
+    #endif
+
     tmrMic.start();
     
   }
   if(recDone)
   {
     recDone = false;
-    
+    #ifndef RELEASE
     Serial.print("cnt125us ");Serial.println(cnt125us);
+    #endif
+    
     /*
     Serial.println("Start Sending");
     //Testing using UDP
@@ -185,23 +187,29 @@ void loop()
       client.publish("intensechoi/controller/audio",audMQTT);
     }
     cnt125us=0;
+    #ifndef RELEASE
     Serial.println("Sending done");
+    #endif
+    
 
   }
+
   //Process Push BUttons, clicks and Holds
   processButtons(); 
   //Handle Buzzer Mode
-  if(oldBuzzerMode!=buzzerMode)
+  if(oldBuzzerMode)//!=buzzerMode)
   {
     setBuzzerMode(buzzerMode);
+    oldBuzzerMode=false;
   }
   //Handle Vibration Mode
-  if(oldVibrationMode!=vibrationMode)
+  if(oldVibrationMode)//!=vibrationMode)
   {
     setVibrationMode(vibrationMode);
+    oldVibrationMode=false;
   }
-  oldBuzzerMode=buzzerMode;
-  oldVibrationMode=vibrationMode;
+  //oldBuzzerMode=buzzerMode;
+  //oldVibrationMode=vibrationMode;
   
   //Handle OLED Screens Mode
   unsigned long curMs = millis();
@@ -213,22 +221,50 @@ void loop()
   }
   
   //Handle Sending Actions while Holding Action Button
-  if (((curMs - pre500ms) >= 500) && actionHolding) 
+  /*if (((curMs - pre500ms) >= 500) && actionHolding) 
   {
     pre500ms = curMs;
     //Action Button is Holding
     Serial.println("Holding...");
-    //subscribing(mapDevice[0],actions[optIndex-1]);
-    //Serial.println("subscribing action");
+    //publishing(mapDevice[0],actions[optIndex-1]);
+    //Serial.println("publishing action");
     //mapAction[0]=actions[optIndex-1];
     //displayMode = 4;
     //wState = 6;
+  }*/
+  //Handle Sending Actions while Holding Action Button > 4sec.
+  if (((millis() - pre4000ms) >= 6000) && anotherAction) 
+  {
+    //pre4000ms = curMs;
+    anotherAction = false;
+    if((wState==3) || (wState==5))
+    {
+      if(moveEvent==false)
+      {
+        publishing(mapDevice[0],actions[optIndex-1]);
+        publishing("audioAction");
+        #ifndef RELEASE
+        Serial.println("publishing audio action");
+        #endif
+        mapAction[0]=actions[optIndex-1];
+        displayMode = 4;
+        wState = 6;
+      }
+    }
   }
   //Read LSM
   if ((curMs - pre25ms) >= 25) 
   {
     pre25ms = curMs;
     read_lsm9ds1();
+  }
+
+  //Return to wait for Action Button again after 2x3 sec
+  if((wState == 6) && (cntDispScreenTime==2))
+  {
+    cntDispScreenTime=0;
+    displayMode = 3;
+    wState = 5;
   }
 
 }
