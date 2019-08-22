@@ -9,5 +9,6 @@ var searchData=
   ['processbuttons',['processButtons',['../userdefined_8h.html#a788895f61e4d9637b76d764ad1bc3d22',1,'userdefined.h']]],
   ['processrxinput',['processRxInput',['../userdefined_8h.html#af451fd4839a45f142f6c79d63538d0ed',1,'userdefined.h']]],
   ['publish_5f_5faudio_5fch',['PUBLISH__AUDIO_CH',['../userdefined_8h.html#af7ed553b53437ac6b98ad67713593c5e',1,'userdefined.h']]],
-  ['publish_5fch',['PUBLISH_CH',['../userdefined_8h.html#adbf2d17f78799dd62bd3362030f37fcd',1,'userdefined.h']]]
+  ['publish_5fch',['PUBLISH_CH',['../userdefined_8h.html#adbf2d17f78799dd62bd3362030f37fcd',1,'userdefined.h']]],
+  ['publishing',['publishing',['../userdefined_8h.html#a6f8992e7c06fda108bf96d5631e8b4cf',1,'userdefined.h']]]
 ];

@@ -18,7 +18,6 @@ var searchData=
   ['smooth',['smooth',['../userdefined_8h.html#a78bbb10ded43b34e366dbeaf154a7cfe',1,'userdefined.h']]],
   ['ssid',['ssid',['../userdefined_8h.html#a587ba0cb07f02913598610049a3bbb79',1,'userdefined.h']]],
   ['subscribe_5fch',['SUBSCRIBE_CH',['../userdefined_8h.html#ae96fde22e80da2991e0d94266a3c0535',1,'userdefined.h']]],
-  ['subscribing',['subscribing',['../userdefined_8h.html#a95d33c46dc2460a5097740c511bfb7f2',1,'userdefined.h']]],
   ['swaction',['swAction',['../userdefined_8h.html#a2af0f15e54ae5e79c5529012ffdea84d',1,'userdefined.h']]],
   ['swactionstate',['swActionState',['../userdefined_8h.html#a6ecede35a2c3bbb1db5ae07f009c54b2',1,'userdefined.h']]],
   ['swc',['swc',['../images_8h.html#aeaa9dbd20f29c3731b40cfdbe330150c',1,'images.h']]],

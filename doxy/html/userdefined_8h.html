@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.15"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IntEnseChoI: C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/master/userdefined.h File Reference</title>
+<title>IntEnseChoI: E:/Personal/Backup/BackupPhD/PhD/TECO/2019/IntEnseChoI_Controller/Code/IntEnseChoIR9/code/master/userdefined.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -118,7 +118,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:a00aef9e8dd001a49f8717031d84b2c6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debounce time (ms) for push buttons. <br /></td></tr>
 <tr class="separator:a00aef9e8dd001a49f8717031d84b2c6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1afdcedadf552c68939e018a40ef194c"><td class="memItemLeft" align="right" valign="top"><a id="a1afdcedadf552c68939e018a40ef194c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a1afdcedadf552c68939e018a40ef194c">HOLDSTART_TIME</a>&#160;&#160;&#160;1000</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a1afdcedadf552c68939e018a40ef194c">HOLDSTART_TIME</a>&#160;&#160;&#160;500</td></tr>
 <tr class="memdesc:a1afdcedadf552c68939e018a40ef194c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holdtime time start after these (ms) for push buttons. <br /></td></tr>
 <tr class="separator:a1afdcedadf552c68939e018a40ef194c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8b6b12ebf84fbd682d415eef2a09867"><td class="memItemLeft" align="right" valign="top"><a id="ab8b6b12ebf84fbd682d415eef2a09867"></a>
@@ -234,9 +234,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="user
 Ticker&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a2beb013e1ff97633b0b488fe60b24579">tmrMic</a> (<a class="el" href="userdefined_8h.html#afb7344e074760eb1379888d1bbc78ec0">readMic</a>, 120, 0, MICROS_MICROS)</td></tr>
 <tr class="memdesc:a2beb013e1ff97633b0b488fe60b24579"><td class="mdescLeft">&#160;</td><td class="mdescRight">timer for adc sample <br /></td></tr>
 <tr class="separator:a2beb013e1ff97633b0b488fe60b24579"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95d33c46dc2460a5097740c511bfb7f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a95d33c46dc2460a5097740c511bfb7f2">subscribing</a> (String devState, String actState=&quot;NULL&quot;)</td></tr>
-<tr class="memdesc:a95d33c46dc2460a5097740c511bfb7f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">publish a message with device and its state  <a href="#a95d33c46dc2460a5097740c511bfb7f2">More...</a><br /></td></tr>
-<tr class="separator:a95d33c46dc2460a5097740c511bfb7f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f8992e7c06fda108bf96d5631e8b4cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a6f8992e7c06fda108bf96d5631e8b4cf">publishing</a> (String devState, String audState=&quot;NULL&quot;, String actState=&quot;NULL&quot;)</td></tr>
+<tr class="separator:a6f8992e7c06fda108bf96d5631e8b4cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fac5995a21f8b1aff83f53bfa39fa25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a3fac5995a21f8b1aff83f53bfa39fa25">refreshOLED1</a> ()</td></tr>
 <tr class="memdesc:a3fac5995a21f8b1aff83f53bfa39fa25"><td class="mdescLeft">&#160;</td><td class="mdescRight">call this function again and again, using Ticker  <a href="#a3fac5995a21f8b1aff83f53bfa39fa25">More...</a><br /></td></tr>
 <tr class="separator:a3fac5995a21f8b1aff83f53bfa39fa25"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -248,11 +247,11 @@ const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memdesc:ae62fa8557ef4586408dcbe2f1a09e839"><td class="mdescLeft">&#160;</td><td class="mdescRight">mqtt broker, may be different <br /></td></tr>
 <tr class="separator:ae62fa8557ef4586408dcbe2f1a09e839"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a587ba0cb07f02913598610049a3bbb79"><td class="memItemLeft" align="right" valign="top"><a id="a587ba0cb07f02913598610049a3bbb79"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a587ba0cb07f02913598610049a3bbb79">ssid</a> = &quot;UPC0870375&quot;</td></tr>
+const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a587ba0cb07f02913598610049a3bbb79">ssid</a> =&quot;IntEnseChoI2Go&quot;</td></tr>
 <tr class="memdesc:a587ba0cb07f02913598610049a3bbb79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Your Wifi SSID. <br /></td></tr>
 <tr class="separator:a587ba0cb07f02913598610049a3bbb79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4a2ebcb494493f648ae1e6975672575"><td class="memItemLeft" align="right" valign="top"><a id="aa4a2ebcb494493f648ae1e6975672575"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#aa4a2ebcb494493f648ae1e6975672575">password</a> = &quot;Ghnfdd6byuxp&quot;</td></tr>
+const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#aa4a2ebcb494493f648ae1e6975672575">password</a> = &quot;connecttothenetwork&quot;</td></tr>
 <tr class="memdesc:aa4a2ebcb494493f648ae1e6975672575"><td class="mdescLeft">&#160;</td><td class="mdescRight">Your Wifi Password. <br /></td></tr>
 <tr class="separator:aa4a2ebcb494493f648ae1e6975672575"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a427c302ee46020d4e678756e77baeab4"><td class="memItemLeft" align="right" valign="top"><a id="a427c302ee46020d4e678756e77baeab4"></a>
@@ -312,7 +311,7 @@ unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 <tr class="memdesc:a92af44b3035f287691fba116fda727dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">moveEvent index <br /></td></tr>
 <tr class="separator:a92af44b3035f287691fba116fda727dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a597f3788bba801611d40cb4363337669"><td class="memItemLeft" align="right" valign="top"><a id="a597f3788bba801611d40cb4363337669"></a>
-unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a597f3788bba801611d40cb4363337669">displayMode</a> =10</td></tr>
+unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a597f3788bba801611d40cb4363337669">displayMode</a> =20</td></tr>
 <tr class="memdesc:a597f3788bba801611d40cb4363337669"><td class="mdescLeft">&#160;</td><td class="mdescRight">handles different display modes/screens 1,2,3,4 <br /></td></tr>
 <tr class="separator:a597f3788bba801611d40cb4363337669"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c1dff64755e3c107de355f380ddcb8f"><td class="memItemLeft" align="right" valign="top"><a id="a0c1dff64755e3c107de355f380ddcb8f"></a>
@@ -324,7 +323,7 @@ unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 <tr class="memdesc:a673daeeca58deb4bace1ee353ba0553c"><td class="mdescLeft">&#160;</td><td class="mdescRight">handles different buzzer moder 1,2,3,4 <br /></td></tr>
 <tr class="separator:a673daeeca58deb4bace1ee353ba0553c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac77e3add5708e9bea2b81156ccfea34b"><td class="memItemLeft" align="right" valign="top"><a id="ac77e3add5708e9bea2b81156ccfea34b"></a>
-unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#ac77e3add5708e9bea2b81156ccfea34b">oldDisplayMode</a> =10</td></tr>
+unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#ac77e3add5708e9bea2b81156ccfea34b">oldDisplayMode</a> =20</td></tr>
 <tr class="memdesc:ac77e3add5708e9bea2b81156ccfea34b"><td class="mdescLeft">&#160;</td><td class="mdescRight">older display modes/screens <br /></td></tr>
 <tr class="separator:ac77e3add5708e9bea2b81156ccfea34b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a915b7a114f374bb74e06ddffc4b03580"><td class="memItemLeft" align="right" valign="top"><a id="a915b7a114f374bb74e06ddffc4b03580"></a>
@@ -475,29 +474,14 @@ volatile boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 volatile boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a9a74e8c8f550d650610ecbdfea3c4780">actionHolding</a> = false</td></tr>
 <tr class="memdesc:a9a74e8c8f550d650610ecbdfea3c4780"><td class="mdescLeft">&#160;</td><td class="mdescRight">if action Push Button starts holding? <br /></td></tr>
 <tr class="separator:a9a74e8c8f550d650610ecbdfea3c4780"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd905b656b90f10c12a28089f65d78c4"><td class="memItemLeft" align="right" valign="top"><a id="abd905b656b90f10c12a28089f65d78c4"></a>
-unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#abd905b656b90f10c12a28089f65d78c4">timeContextKeyPress</a> = 0</td></tr>
-<tr class="memdesc:abd905b656b90f10c12a28089f65d78c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">occurance time of Context key pressed <br /></td></tr>
-<tr class="separator:abd905b656b90f10c12a28089f65d78c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0145a6ecda9c85d4aacda79a4f75265c"><td class="memItemLeft" align="right" valign="top"><a id="a0145a6ecda9c85d4aacda79a4f75265c"></a>
-unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a0145a6ecda9c85d4aacda79a4f75265c">timeContextLastPress</a> = 0</td></tr>
-<tr class="memdesc:a0145a6ecda9c85d4aacda79a4f75265c"><td class="mdescLeft">&#160;</td><td class="mdescRight">last occurance time of Context key pressed <br /></td></tr>
+<tr class="memitem:a0145a6ecda9c85d4aacda79a4f75265c"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a0145a6ecda9c85d4aacda79a4f75265c">timeContextLastPress</a> = 0</td></tr>
+<tr class="memdesc:a0145a6ecda9c85d4aacda79a4f75265c"><td class="mdescLeft">&#160;</td><td class="mdescRight">occurance time of Context key pressed  <a href="#a0145a6ecda9c85d4aacda79a4f75265c">More...</a><br /></td></tr>
 <tr class="separator:a0145a6ecda9c85d4aacda79a4f75265c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87b76ccf68f37c8d3fe2a01983ac2dff"><td class="memItemLeft" align="right" valign="top"><a id="a87b76ccf68f37c8d3fe2a01983ac2dff"></a>
-unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a87b76ccf68f37c8d3fe2a01983ac2dff">timeVoiceKeyPress</a> = 0</td></tr>
-<tr class="memdesc:a87b76ccf68f37c8d3fe2a01983ac2dff"><td class="mdescLeft">&#160;</td><td class="mdescRight">occurance time of Voice key pressed <br /></td></tr>
-<tr class="separator:a87b76ccf68f37c8d3fe2a01983ac2dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a632713b7eacb3b2e83beae5daa0f2f2d"><td class="memItemLeft" align="right" valign="top"><a id="a632713b7eacb3b2e83beae5daa0f2f2d"></a>
-unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a632713b7eacb3b2e83beae5daa0f2f2d">timeVoiceLastPress</a> = 0</td></tr>
-<tr class="memdesc:a632713b7eacb3b2e83beae5daa0f2f2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">last occurance time of Voice key pressed <br /></td></tr>
+<tr class="memitem:a632713b7eacb3b2e83beae5daa0f2f2d"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a632713b7eacb3b2e83beae5daa0f2f2d">timeVoiceLastPress</a> = 0</td></tr>
+<tr class="memdesc:a632713b7eacb3b2e83beae5daa0f2f2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">occurance time of Voice key pressed  <a href="#a632713b7eacb3b2e83beae5daa0f2f2d">More...</a><br /></td></tr>
 <tr class="separator:a632713b7eacb3b2e83beae5daa0f2f2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07e7ab27cb43db276f592afa86de2ad2"><td class="memItemLeft" align="right" valign="top"><a id="a07e7ab27cb43db276f592afa86de2ad2"></a>
-unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a07e7ab27cb43db276f592afa86de2ad2">timeActionKeyPress</a> = 0</td></tr>
-<tr class="memdesc:a07e7ab27cb43db276f592afa86de2ad2"><td class="mdescLeft">&#160;</td><td class="mdescRight">occurance time of Action key pressed <br /></td></tr>
-<tr class="separator:a07e7ab27cb43db276f592afa86de2ad2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af009e500933e9d05812e656346e1a7a6"><td class="memItemLeft" align="right" valign="top"><a id="af009e500933e9d05812e656346e1a7a6"></a>
-unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#af009e500933e9d05812e656346e1a7a6">timeActionLastPress</a> = 0</td></tr>
-<tr class="memdesc:af009e500933e9d05812e656346e1a7a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">last occurance time of Action key pressed <br /></td></tr>
+<tr class="memitem:af009e500933e9d05812e656346e1a7a6"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#af009e500933e9d05812e656346e1a7a6">timeActionLastPress</a> = 0</td></tr>
+<tr class="memdesc:af009e500933e9d05812e656346e1a7a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">occurance time of Action key pressed  <a href="#af009e500933e9d05812e656346e1a7a6">More...</a><br /></td></tr>
 <tr class="separator:af009e500933e9d05812e656346e1a7a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afac5451cf57dec9c44300bc9b15d17c2"><td class="memItemLeft" align="right" valign="top"><a id="afac5451cf57dec9c44300bc9b15d17c2"></a>
 boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#afac5451cf57dec9c44300bc9b15d17c2">swContextState</a></td></tr>
@@ -524,11 +508,11 @@ Adafruit_LSM9DS1&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 <tr class="memdesc:a7a5d159be8a1ed0aaddbd7898fea3c85"><td class="mdescLeft">&#160;</td><td class="mdescRight">instance of accelerometer gyroscope and magnetometer <br /></td></tr>
 <tr class="separator:a7a5d159be8a1ed0aaddbd7898fea3c85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83f06c91d1afa9691d60bb5fb3b54275"><td class="memItemLeft" align="right" valign="top"><a id="a83f06c91d1afa9691d60bb5fb3b54275"></a>
-const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a83f06c91d1afa9691d60bb5fb3b54275">swContext</a> = 12</td></tr>
+const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a83f06c91d1afa9691d60bb5fb3b54275">swContext</a> = 13</td></tr>
 <tr class="memdesc:a83f06c91d1afa9691d60bb5fb3b54275"><td class="mdescLeft">&#160;</td><td class="mdescRight">Context Push Button. <br /></td></tr>
 <tr class="separator:a83f06c91d1afa9691d60bb5fb3b54275"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65514c6a9f83218e25abfdf8c86d1219"><td class="memItemLeft" align="right" valign="top"><a id="a65514c6a9f83218e25abfdf8c86d1219"></a>
-const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a65514c6a9f83218e25abfdf8c86d1219">swVoice</a> = 13</td></tr>
+const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="userdefined_8h.html#a65514c6a9f83218e25abfdf8c86d1219">swVoice</a> = 12</td></tr>
 <tr class="memdesc:a65514c6a9f83218e25abfdf8c86d1219"><td class="mdescLeft">&#160;</td><td class="mdescRight">Voice Push Button. <br /></td></tr>
 <tr class="separator:a65514c6a9f83218e25abfdf8c86d1219"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2af0f15e54ae5e79c5529012ffdea84d"><td class="memItemLeft" align="right" valign="top"><a id="a2af0f15e54ae5e79c5529012ffdea84d"></a>
@@ -574,7 +558,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <p>Handle Push Button Interrupt for Action. </p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00778">778</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00850">850</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -621,7 +605,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00831">831</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00905">905</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -643,7 +627,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <p>//Handle Push Button Interrupt for Context </p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00758">758</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00830">830</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -672,7 +656,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l01296">1296</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l01396">1396</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -701,7 +685,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l01116">1116</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l01210">1210</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -724,7 +708,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <p>Routine to Handle the Push Button Presses and Holds. </p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00551">551</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00592">592</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -747,7 +731,49 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <p>process serial data from Nano </p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00502">502</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00525">525</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+
+</div>
+</div>
+<a id="a6f8992e7c06fda108bf96d5631e8b4cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f8992e7c06fda108bf96d5631e8b4cf">&#9670;&nbsp;</a></span>publishing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void publishing </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>devState</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>audState</em> = <code>&quot;NULL&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>actState</em> = <code>&quot;NULL&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">@brief  publish a message with device and its state
+@param devState the first part of the message
+@param actState the second part of the message
+@returns void
+{"device":"light","cmd":"white"}
+</pre><p> to {"device":"light","cmd":"white", "audio":"false"} {"device":"light","audio":"true"} {"device":"none"} </p>
+
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00285">285</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -770,7 +796,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <p>Read the LSM9DS1 and detect the Right, Left, Away and Close Movements. </p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00337">337</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00349">349</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -793,7 +819,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <p>reading the Microphone with timer function </p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="master_8ino_source.html#l00094">94</a> of file <a class="el" href="master_8ino_source.html">master.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="master_8ino_source.html#l00096">96</a> of file <a class="el" href="master_8ino_source.html">master.ino</a>.</p>
 
 </div>
 </div>
@@ -815,7 +841,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <p>Connect/reconnect to the Wifi. </p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l01076">1076</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l01170">1170</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -837,7 +863,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <p>call this function again and again, using Ticker </p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00818">818</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00892">892</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -859,7 +885,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <p>resend the subscrib message to MQTT again and again, using Ticker </p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00803">803</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00875">875</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -888,7 +914,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l01145">1145</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l01239">1239</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -910,7 +936,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <p>Detects the Interrupt From Nano to start serial data. </p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00540">540</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00578">578</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -939,7 +965,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l01165">1165</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l01259">1259</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -968,7 +994,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00917">917</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l01001">1001</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -991,7 +1017,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <p>Setting up the DRV2605 Motor. </p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00445">445</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00468">468</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -1014,7 +1040,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <p>Setting up the LSM9DS1 Accelerometer. </p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00309">309</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00321">321</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -1037,7 +1063,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <p>Setting up the OLED Display. </p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00463">463</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00486">486</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -1059,7 +1085,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <p>setup the Wifi </p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l01045">1045</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l01139">1139</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -1088,7 +1114,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l01198">1198</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l01298">1298</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -1128,47 +1154,7 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l01273">1273</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
-
-</div>
-</div>
-<a id="a95d33c46dc2460a5097740c511bfb7f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95d33c46dc2460a5097740c511bfb7f2">&#9670;&nbsp;</a></span>subscribing()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void subscribing </td>
-          <td>(</td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>devState</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>actState</em> = <code>&quot;NULL&quot;</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>publish a message with device and its state </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">devState</td><td>the first part of the message </td></tr>
-    <tr><td class="paramname">actState</td><td>the second part of the message </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00282">282</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l01373">1373</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>
@@ -1190,7 +1176,65 @@ const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <p>//Handle Push Button Interrupt for Voice </p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00768">768</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00840">840</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="af009e500933e9d05812e656346e1a7a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af009e500933e9d05812e656346e1a7a6">&#9670;&nbsp;</a></span>timeActionLastPress</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long timeActionLastPress = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>occurance time of Action key pressed </p>
+<p>last occurance time of Action key pressed </p>
+
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00199">199</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+
+</div>
+</div>
+<a id="a0145a6ecda9c85d4aacda79a4f75265c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0145a6ecda9c85d4aacda79a4f75265c">&#9670;&nbsp;</a></span>timeContextLastPress</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long timeContextLastPress = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>occurance time of Context key pressed </p>
+<p>last occurance time of Context key pressed </p>
+
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00191">191</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
+
+</div>
+</div>
+<a id="a632713b7eacb3b2e83beae5daa0f2f2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a632713b7eacb3b2e83beae5daa0f2f2d">&#9670;&nbsp;</a></span>timeVoiceLastPress</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long timeVoiceLastPress = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>occurance time of Voice key pressed </p>
+<p>last occurance time of Voice key pressed </p>
+
+<p class="definition">Definition at line <a class="el" href="userdefined_8h_source.html#l00195">195</a> of file <a class="el" href="userdefined_8h_source.html">userdefined.h</a>.</p>
 
 </div>
 </div>

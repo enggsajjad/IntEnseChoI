@@ -13,6 +13,5 @@ var searchData=
   ['setup_5foled',['setup_oled',['../userdefined_8h.html#aff2c25b4db2e01955059ff0bbd75505e',1,'userdefined.h']]],
   ['setup_5fwifi',['setup_wifi',['../userdefined_8h.html#ae5b88d967e3185d98053cf055c8b4f1f',1,'userdefined.h']]],
   ['setvibrationmode',['setVibrationMode',['../userdefined_8h.html#a2e892cdab889a43c4547e4a22ca02b98',1,'userdefined.h']]],
-  ['smooth',['smooth',['../userdefined_8h.html#a78bbb10ded43b34e366dbeaf154a7cfe',1,'userdefined.h']]],
-  ['subscribing',['subscribing',['../userdefined_8h.html#a95d33c46dc2460a5097740c511bfb7f2',1,'userdefined.h']]]
+  ['smooth',['smooth',['../userdefined_8h.html#a78bbb10ded43b34e366dbeaf154a7cfe',1,'userdefined.h']]]
 ];

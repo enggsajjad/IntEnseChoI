@@ -1,8 +1,8 @@
-.TH "C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/master/userdefined.h" 3 "Mon Aug 5 2019" "IntEnseChoI" \" -*- nroff -*-
+.TH "E:/Personal/Backup/BackupPhD/PhD/TECO/2019/IntEnseChoI_Controller/Code/IntEnseChoIR9/code/master/userdefined.h" 3 "Thu Aug 22 2019" "IntEnseChoI" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/master/userdefined.h \- variable and function definitions  
+E:/Personal/Backup/BackupPhD/PhD/TECO/2019/IntEnseChoI_Controller/Code/IntEnseChoIR9/code/master/userdefined.h \- variable and function definitions  
 
 .SH SYNOPSIS
 .br
@@ -38,7 +38,7 @@ C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/master/userdefi
 .br
 .RI "Debounce time (ms) for push buttons\&. "
 .ti -1c
-.RI "#define \fBHOLDSTART_TIME\fP   1000"
+.RI "#define \fBHOLDSTART_TIME\fP   500"
 .br
 .RI "Holdtime time start after these (ms) for push buttons\&. "
 .ti -1c
@@ -178,9 +178,8 @@ C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/master/userdefi
 .br
 .RI "timer for adc sample "
 .ti -1c
-.RI "void \fBsubscribing\fP (String devState, String actState='NULL')"
+.RI "void \fBpublishing\fP (String devState, String audState='NULL', String actState='NULL')"
 .br
-.RI "publish a message with device and its state "
 .ti -1c
 .RI "void \fBrefreshOLED1\fP ()"
 .br
@@ -194,11 +193,11 @@ C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/master/userdefi
 .br
 .RI "mqtt broker, may be different "
 .ti -1c
-.RI "const char * \fBssid\fP = 'UPC0870375'"
+.RI "const char * \fBssid\fP ='IntEnseChoI2Go'"
 .br
 .RI "Your Wifi SSID\&. "
 .ti -1c
-.RI "const char * \fBpassword\fP = 'Ghnfdd6byuxp'"
+.RI "const char * \fBpassword\fP = 'connecttothenetwork'"
 .br
 .RI "Your Wifi Password\&. "
 .ti -1c
@@ -258,7 +257,7 @@ C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/master/userdefi
 .br
 .RI "moveEvent index "
 .ti -1c
-.RI "unsigned char \fBdisplayMode\fP =10"
+.RI "unsigned char \fBdisplayMode\fP =20"
 .br
 .RI "handles different display modes/screens 1,2,3,4 "
 .ti -1c
@@ -270,7 +269,7 @@ C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/master/userdefi
 .br
 .RI "handles different buzzer moder 1,2,3,4 "
 .ti -1c
-.RI "unsigned char \fBoldDisplayMode\fP =10"
+.RI "unsigned char \fBoldDisplayMode\fP =20"
 .br
 .RI "older display modes/screens "
 .ti -1c
@@ -422,29 +421,17 @@ C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/master/userdefi
 .br
 .RI "if action Push Button starts holding? "
 .ti -1c
-.RI "unsigned long \fBtimeContextKeyPress\fP = 0"
+.RI "unsigned long \fBtimeContextLastPress\fP = 0"
 .br
 .RI "occurance time of Context key pressed "
 .ti -1c
-.RI "unsigned long \fBtimeContextLastPress\fP = 0"
-.br
-.RI "last occurance time of Context key pressed "
-.ti -1c
-.RI "unsigned long \fBtimeVoiceKeyPress\fP = 0"
+.RI "unsigned long \fBtimeVoiceLastPress\fP = 0"
 .br
 .RI "occurance time of Voice key pressed "
 .ti -1c
-.RI "unsigned long \fBtimeVoiceLastPress\fP = 0"
-.br
-.RI "last occurance time of Voice key pressed "
-.ti -1c
-.RI "unsigned long \fBtimeActionKeyPress\fP = 0"
-.br
-.RI "occurance time of Action key pressed "
-.ti -1c
 .RI "unsigned long \fBtimeActionLastPress\fP = 0"
 .br
-.RI "last occurance time of Action key pressed "
+.RI "occurance time of Action key pressed "
 .ti -1c
 .RI "boolean \fBswContextState\fP"
 .br
@@ -470,11 +457,11 @@ C:/Users/Sajjad/Documents/Arduino/IntEnseChoI/IntEnseChoIR8/code/master/userdefi
 .br
 .RI "instance of accelerometer gyroscope and magnetometer "
 .ti -1c
-.RI "const int \fBswContext\fP = 12"
+.RI "const int \fBswContext\fP = 13"
 .br
 .RI "Context Push Button\&. "
 .ti -1c
-.RI "const int \fBswVoice\fP = 13"
+.RI "const int \fBswVoice\fP = 12"
 .br
 .RI "Voice Push Button\&. "
 .ti -1c
@@ -527,7 +514,7 @@ void
 .PP
 
 .PP
-Definition at line 778 of file userdefined\&.h\&.
+Definition at line 850 of file userdefined\&.h\&.
 .SS "void callback (char * topic, byte * payload, unsigned int length)"
 
 .PP
@@ -549,7 +536,7 @@ void
 .PP
 
 .PP
-Definition at line 831 of file userdefined\&.h\&.
+Definition at line 905 of file userdefined\&.h\&.
 .SS "void ICACHE_RAM_ATTR ContextKeyIsPressed ()"
 
 .PP
@@ -562,7 +549,7 @@ void
 .PP
 
 .PP
-Definition at line 758 of file userdefined\&.h\&.
+Definition at line 830 of file userdefined\&.h\&.
 .SS "int frequency (char note)"
 
 .PP
@@ -580,7 +567,7 @@ void
 .PP
 
 .PP
-Definition at line 1296 of file userdefined\&.h\&.
+Definition at line 1396 of file userdefined\&.h\&.
 .SS "void parsing (byte * payload)"
 
 .PP
@@ -598,7 +585,7 @@ void
 .PP
 
 .PP
-Definition at line 1116 of file userdefined\&.h\&.
+Definition at line 1210 of file userdefined\&.h\&.
 .SS "void processButtons (void)"
 
 .PP
@@ -611,7 +598,7 @@ void
 .PP
 
 .PP
-Definition at line 551 of file userdefined\&.h\&.
+Definition at line 592 of file userdefined\&.h\&.
 .SS "void processRxInput (void)"
 
 .PP
@@ -624,7 +611,22 @@ void
 .PP
 
 .PP
-Definition at line 502 of file userdefined\&.h\&.
+Definition at line 525 of file userdefined\&.h\&.
+.SS "void publishing (String devState, String audState = \fC'NULL'\fP, String actState = \fC'NULL'\fP)"
+
+.PP
+.nf
+@brief  publish a message with device and its state
+@param devState the first part of the message
+@param actState the second part of the message
+@returns void
+{"device":"light","cmd":"white"}
+
+.fi
+.PP
+ to {'device':'light','cmd':'white', 'audio':'false'} {'device':'light','audio':'true'} {'device':'none'} 
+.PP
+Definition at line 285 of file userdefined\&.h\&.
 .SS "void read_lsm9ds1 (void)"
 
 .PP
@@ -637,7 +639,7 @@ void
 .PP
 
 .PP
-Definition at line 337 of file userdefined\&.h\&.
+Definition at line 349 of file userdefined\&.h\&.
 .SS "void readMic (void)"
 
 .PP
@@ -650,7 +652,7 @@ void
 .PP
 
 .PP
-Definition at line 94 of file master\&.ino\&.
+Definition at line 96 of file master\&.ino\&.
 .SS "void reconnect ()"
 
 .PP
@@ -663,7 +665,7 @@ void
 .PP
 
 .PP
-Definition at line 1076 of file userdefined\&.h\&.
+Definition at line 1170 of file userdefined\&.h\&.
 .SS "void refreshOLED1 ()"
 
 .PP
@@ -676,7 +678,7 @@ void
 .PP
 
 .PP
-Definition at line 818 of file userdefined\&.h\&.
+Definition at line 892 of file userdefined\&.h\&.
 .SS "void refreshSubscribe ()"
 
 .PP
@@ -689,7 +691,7 @@ void
 .PP
 
 .PP
-Definition at line 803 of file userdefined\&.h\&.
+Definition at line 875 of file userdefined\&.h\&.
 .SS "void sendCmd2Slave (unsigned char cmd)"
 
 .PP
@@ -707,7 +709,7 @@ void
 .PP
 
 .PP
-Definition at line 1145 of file userdefined\&.h\&.
+Definition at line 1239 of file userdefined\&.h\&.
 .SS "void ICACHE_RAM_ATTR SerialTriggerISR ()"
 
 .PP
@@ -720,7 +722,7 @@ void
 .PP
 
 .PP
-Definition at line 540 of file userdefined\&.h\&.
+Definition at line 578 of file userdefined\&.h\&.
 .SS "void setBuzzerMode (unsigned char bm)"
 
 .PP
@@ -738,7 +740,7 @@ void
 .PP
 
 .PP
-Definition at line 1165 of file userdefined\&.h\&.
+Definition at line 1259 of file userdefined\&.h\&.
 .SS "void setDisplayMode (unsigned char om)"
 
 .PP
@@ -756,7 +758,7 @@ void
 .PP
 
 .PP
-Definition at line 917 of file userdefined\&.h\&.
+Definition at line 1001 of file userdefined\&.h\&.
 .SS "void setup_drv2605 (void)"
 
 .PP
@@ -769,7 +771,7 @@ void
 .PP
 
 .PP
-Definition at line 445 of file userdefined\&.h\&.
+Definition at line 468 of file userdefined\&.h\&.
 .SS "void setup_lsm9ds1 (void)"
 
 .PP
@@ -782,7 +784,7 @@ void
 .PP
 
 .PP
-Definition at line 309 of file userdefined\&.h\&.
+Definition at line 321 of file userdefined\&.h\&.
 .SS "void setup_oled (void)"
 
 .PP
@@ -795,7 +797,7 @@ void
 .PP
 
 .PP
-Definition at line 463 of file userdefined\&.h\&.
+Definition at line 486 of file userdefined\&.h\&.
 .SS "void setup_wifi ()"
 
 .PP
@@ -808,7 +810,7 @@ void
 .PP
 
 .PP
-Definition at line 1045 of file userdefined\&.h\&.
+Definition at line 1139 of file userdefined\&.h\&.
 .SS "void setVibrationMode (unsigned char vm)"
 
 .PP
@@ -826,7 +828,7 @@ void
 .PP
 
 .PP
-Definition at line 1198 of file userdefined\&.h\&.
+Definition at line 1298 of file userdefined\&.h\&.
 .SS "void smooth (int axis, float val)"
 
 .PP
@@ -846,27 +848,7 @@ void
 .PP
 
 .PP
-Definition at line 1273 of file userdefined\&.h\&.
-.SS "void subscribing (String devState, String actState = \fC'NULL'\fP)"
-
-.PP
-publish a message with device and its state 
-.PP
-\fBParameters:\fP
-.RS 4
-\fIdevState\fP the first part of the message 
-.br
-\fIactState\fP the second part of the message 
-.RE
-.PP
-\fBReturns:\fP
-.RS 4
-void 
-.RE
-.PP
-
-.PP
-Definition at line 282 of file userdefined\&.h\&.
+Definition at line 1373 of file userdefined\&.h\&.
 .SS "void ICACHE_RAM_ATTR VoiceKeyIsPressed ()"
 
 .PP
@@ -879,7 +861,27 @@ void
 .PP
 
 .PP
-Definition at line 768 of file userdefined\&.h\&.
+Definition at line 840 of file userdefined\&.h\&.
+.SH "Variable Documentation"
+.PP 
+.SS "unsigned long timeActionLastPress = 0"
+
+.PP
+occurance time of Action key pressed last occurance time of Action key pressed 
+.PP
+Definition at line 199 of file userdefined\&.h\&.
+.SS "unsigned long timeContextLastPress = 0"
+
+.PP
+occurance time of Context key pressed last occurance time of Context key pressed 
+.PP
+Definition at line 191 of file userdefined\&.h\&.
+.SS "unsigned long timeVoiceLastPress = 0"
+
+.PP
+occurance time of Voice key pressed last occurance time of Voice key pressed 
+.PP
+Definition at line 195 of file userdefined\&.h\&.
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for IntEnseChoI from the source code\&.

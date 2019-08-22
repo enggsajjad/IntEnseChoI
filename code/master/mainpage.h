@@ -13,7 +13,7 @@ options.\n
 Slave microcontroller is Arduino Nano 
 ----> https://store.arduino.cc/arduino-nano
 This is used to extend the digital and analog pins of the master microcontroller. And these two are inter-connected using serial communication with a trigger input.
-
+You have the add the microcontrollers to the Arduino IDE and then add the required libraries as well.
 @section hw_sec Hardware
 There are two boards used, one as a master and the other as a slave.\n
 1. Sparkfun ESP8266 Thing Dev ----> https://www.sparkfun.com/products/13711
