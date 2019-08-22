@@ -10,6 +10,7 @@
  *  @date 02.08.2019
  */
 
+
 //**********************INCLUDE FILES******************************
 
 //#define RELEASE // uncomment to switch servers to release version, enable sending to madavi and luftdaten.info, and supress some debug output
@@ -32,7 +33,7 @@
 ///Debounce time (ms) for push buttons
 #define DEBOUNCE_TIME 10   
 ///Holdtime time start after these (ms) for push buttons                   
-#define HOLDSTART_TIME 1000                   
+#define HOLDSTART_TIME 500//1000 //????//0.5se                   
 ///mqqt port                        
 #define mqtt_port 1883 
 ///mqtt user (option)
@@ -49,16 +50,17 @@
 
 //***********************GLOBAL VARIABLES**************************
 ///mqtt broker, may be different
-const char* mqtt_server = "broker.mqtt-dashboard.com";    
-//const char* mqtt_server = "broker.hivemq.com";   //mqtt broker, http://www.hivemq.com/demos/websocket-client/ 
+//const char* mqtt_server = "broker.mqtt-dashboard.com";    
+const char* mqtt_server = "broker.hivemq.com";   //mqtt broker, http://www.hivemq.com/demos/websocket-client/ 
 //const char* mqtt_server = "192.168.178.33";    //mqtt broker, may be different
 /// Your Wifi SSID
-const char* ssid = "UPC0870375";                
-//const char* ssid ="tecoLecture"; 
+//const char* ssid = "UPC0870375";                
+//const char* ssid ="tecoLecture";
+const char* ssid ="IntEnseChoI2Go"; 
 /// Your Wifi Password               
-const char* password = "Ghnfdd6byuxp";                
+//const char* password = "Ghnfdd6byuxp";                
 //const char* password = "PerComSS16";                
-
+const char* password = "connecttothenetwork";
 
 
 ///States for incomming MQTT messages
@@ -90,13 +92,13 @@ boolean secondScreen;
 ///moveEvent index
 unsigned char optIndex;                 
 ///handles different display modes/screens 1,2,3,4
-unsigned char displayMode=10;           
+unsigned char displayMode=20;           
 ///handles different vibration modes, 1,2,3,4
 unsigned char vibrationMode=-1;         
 ///handles different buzzer moder 1,2,3,4
 unsigned char buzzerMode=-1;            
 ///older display modes/screens
-unsigned char oldDisplayMode=10;        
+unsigned char oldDisplayMode=20;        
 ///older vibration modes,
 boolean oldVibrationMode=-1;      
 ///older buzzer moder
@@ -184,15 +186,15 @@ volatile boolean actionHolding = false;
 
 // variable used for the debounce
 ///occurance time of Context key pressed
-unsigned long timeContextKeyPress = 0;      
+//unsigned long timeContextKeyPress = 0;      
 ///last occurance time of Context key pressed
 unsigned long timeContextLastPress = 0;      
 ///occurance time of Voice key pressed
-unsigned long timeVoiceKeyPress = 0;      
+//unsigned long timeVoiceKeyPress = 0;      
 ///last occurance time of Voice key pressed
 unsigned long timeVoiceLastPress = 0;      
 ///occurance time of Action key pressed
-unsigned long timeActionKeyPress = 0;      
+//unsigned long timeActionKeyPress = 0;      
 ///last occurance time of Action key pressed
 unsigned long timeActionLastPress = 0;      
 
@@ -221,9 +223,9 @@ SSD1306Wire  oled(0x3d, 2, 14);
 //**********************************HARDWARE PINS*************************************
 
 /// Context Push Button
-const int swContext = 12;  
+const int swContext = 13;  
 /// Voice Push Button   
-const int swVoice = 13;     
+const int swVoice = 12;     
 /// Action Push Button
 const int swAction = 5;     
 /// pasive buzzer pin
@@ -265,27 +267,38 @@ void refreshSubscribe(void);
 Ticker tmrMic(readMic, 120, 0, MICROS_MICROS);//125
 //Ticker tmrMic(readMic, 128, 0, MICROS_MICROS);
 
-
-
 //**************************FUNCTION DEFINITIONS*****************************
-
 /**************************************************************************/
 /*!
     @brief  publish a message with device and its state
     @param devState the first part of the message
     @param actState the second part of the message
     @returns void
+    {"device":"light","cmd":"white"}
+to
+{"device":"light","cmd":"white", "audio":"false"}
+{"device":"light","audio":"true"}
+{"device":"none"}
 */
 /**************************************************************************/
 //sending a message to MQTT
-void publishing(String devState, String actState = "NULL")
+void publishing(String devState, String audState = "NULL", String actState = "NULL")
 {
 StaticJsonBuffer<300> JSONbuffer;
 JsonObject& JSONencoder = JSONbuffer.createObject();
-char JSONmessageBuffer[50];
+char JSONmessageBuffer[100];
   JSONencoder["device"] = devState;
-  if (actState!= "NULL")
+  if (actState!= "NULL" && audState!= "NULL")
+  {
     JSONencoder["cmd"] = actState;
+    if (audState=="true") JSONencoder["audio"] = true;
+    else if (audState=="false") JSONencoder["audio"] = false;
+  }else if (actState== "NULL" && audState!= "NULL")
+  {
+    JSONencoder["audio"] = audState;
+    if (audState=="true") JSONencoder["audio"] = true;
+    else if (audState=="false") JSONencoder["audio"] = false;
+  }
   JSONencoder.printTo(JSONmessageBuffer, sizeof(JSONmessageBuffer));
   //Serial.println("Sending message to MQTT topic..");
   Serial.println(JSONmessageBuffer);
@@ -373,7 +386,8 @@ void read_lsm9ds1(void)
         if (curDirection>0) gState = 1;
         break;
     case 1:
-      if(cntms==20)
+      //if(cntms==20)//20x25ms=500ms
+      if(cntms==40)//40x25ms=1000ms
       {
         curDirection = 0;
         gState = 0;
@@ -390,7 +404,7 @@ void read_lsm9ds1(void)
               #ifndef RELEASE
                 Serial.println("Acc.down");
               #endif
-              buzzerMode = 2;oldBuzzerMode=true;
+              buzzerMode = 5;oldBuzzerMode=true;
               optIndex = 6;
               moveEvent = true;
               curDirection = 0; 
@@ -404,7 +418,7 @@ void read_lsm9ds1(void)
               #ifndef RELEASE
                 Serial.println("Acc.up");
               #endif
-              buzzerMode = 2;oldBuzzerMode=true;
+              buzzerMode = 5;oldBuzzerMode=true;
               optIndex = 5;
               moveEvent = true;
               curDirection = 0; 
@@ -418,7 +432,7 @@ void read_lsm9ds1(void)
               #ifndef RELEASE
                 Serial.println("Acc.left");
               #endif
-              buzzerMode = 2;oldBuzzerMode=true;
+              buzzerMode = 5;oldBuzzerMode=true;
               optIndex = 8;
               moveEvent = true;
               curDirection = 0; 
@@ -432,7 +446,7 @@ void read_lsm9ds1(void)
               #ifndef RELEASE
                 Serial.println("Acc.right");
               #endif
-              buzzerMode = 2;oldBuzzerMode=true;
+              buzzerMode = 5;oldBuzzerMode=true;
               optIndex = 7;
               moveEvent = true;
               curDirection = 0; 
@@ -516,7 +530,7 @@ void processRxInput(void)
       #ifndef RELEASE
         Serial.println("Jstick.Mid");
       #endif
-      buzzerMode = 3;oldBuzzerMode=true;
+      buzzerMode = 5;oldBuzzerMode=true;
       break;
     case 2://JoyStick Right
       optIndex = 3;
@@ -524,7 +538,7 @@ void processRxInput(void)
       #ifndef RELEASE
         Serial.println("Jstick.Right");
       #endif
-      buzzerMode = 3;oldBuzzerMode=true;
+      buzzerMode = 5;oldBuzzerMode=true;
       break;
     case 3://JoyStick Left
       optIndex = 4;
@@ -532,7 +546,7 @@ void processRxInput(void)
       #ifndef RELEASE
         Serial.println("Jstick.Left");
       #endif
-      buzzerMode = 3;oldBuzzerMode=true;
+      buzzerMode = 5;oldBuzzerMode=true;
       break;
     case 4://JoyStick Down
       optIndex = 2;
@@ -540,7 +554,7 @@ void processRxInput(void)
       #ifndef RELEASE
         Serial.println("Jstick.Down");
       #endif
-      buzzerMode = 3;oldBuzzerMode=true;
+      buzzerMode = 5;oldBuzzerMode=true;
       break;
     case 5://JoyStick Up
       optIndex = 1;
@@ -548,7 +562,7 @@ void processRxInput(void)
       #ifndef RELEASE
         Serial.println("Jstick.Up");
       #endif
-      buzzerMode = 3;oldBuzzerMode=true;
+      buzzerMode = 5;oldBuzzerMode=true;
       break;
     default:
       break;
@@ -583,21 +597,26 @@ void processButtons(void)
       break;
      //==================================== CONTEXT BUTTON PRESSED, RELEASED, HOLDING, HOLD_END STATES ================================================
      case 1://contextKeyPressed
-          btnState = 0;
-          timeContextKeyPress = millis();
-          if ( timeContextKeyPress - timeContextLastPress >= DEBOUNCE_TIME)
+          //btnState = 0;
+          //timeContextKeyPress = millis();
+          swActionState = 0;
+          actionHolding = 0;
+          swVoiceState = 0;
+          voiceHolding = 0;
+          if ( millis() - timeContextLastPress >= DEBOUNCE_TIME)
           {
               switch(swContextState){
               case 0:
-				//================== KeyPressed is detected. =================================
-                Serial.println("C.Pressed");// KeyPressed is detected.
+				      //================== KeyPressed is detected. =================================
+                
                 btnState = 2;
                 swContextState = 1;
+                Serial.println("C.Pressed");// KeyPressed is detected.
                 break;
               case 1:
                 if(contextHolding)
                 {
-					//================== Key Holding ends here =================================
+					      //================== Key Holding ends here =================================
                   Serial.println("C.HoldEnd");//Key Holding ends here
                   //Perform the following while contect hold is released
                   if(wState == 1)
@@ -605,6 +624,8 @@ void processButtons(void)
                     if(moveEvent)
                     {
                       moveEvent = false;
+                      if(device[optIndex-1]!="-")
+                      {
                       publishing(device[optIndex-1]);
                       #ifndef RELEASE
                       Serial.println("publishing device");
@@ -613,11 +634,12 @@ void processButtons(void)
                       displayMode = 2;
                       vibrationMode = 2;oldVibrationMode =true;
                       wState = 4;
+                      }
                     }
                   }
                 }else
                 {
-				  //================== Key un-Pressed is detected. =================================
+				          //================== Key un-Pressed is detected. =================================
                   Serial.println("C.Released");  // Key un-Pressed is detected.
                   //Perform the following function
                   //contextPress = true;
@@ -636,7 +658,7 @@ void processButtons(void)
                     #endif
                     publishing("none");
                     vibrationMode = 0;oldVibrationMode =true;
-                    
+                    displayMode = 5;
                     wState = 0;
                   }
                 }
@@ -646,30 +668,36 @@ void processButtons(void)
                 break;
               }//switch                
           }//if time
-          timeContextLastPress = timeContextKeyPress;
+          timeContextLastPress = millis();
       break;
      case 2:
        if ( millis() - timeContextLastPress >= HOLDSTART_TIME)
        {
 		  //================== Key Holding starts here =================================
           Serial.println("C.Hold");//Key Holding starts here
+          buzzerMode = 6;oldBuzzerMode=true;
           contextHolding = true;
           btnState = 0;
        }
       break;
      //==================================== VOICE BUTTON PRESSED, RELEASED, HOLDING, HOLD_END STATES ================================================
      case 3://voiceKeyPressed
-          btnState = 0;
-          timeVoiceKeyPress = millis();
-          if ( timeVoiceKeyPress - timeVoiceLastPress >= DEBOUNCE_TIME)
+          //btnState = 0;
+          //timeVoiceKeyPress = millis();
+          swActionState = 0;
+          actionHolding = 0;
+          swContextState = 0;
+          contextHolding = 0;
+          if ( millis() - timeVoiceLastPress >= DEBOUNCE_TIME)
           {
               switch(swVoiceState){
               case 0:
 				//================== KeyPressed is detected. =================================
-                Serial.println("V.Pressed");// KeyPressed is detected.
+                
                 
                 btnState = 4;
                 swVoiceState = 1;
+                Serial.println("V.Pressed");// KeyPressed is detected.
                 break;
               case 1:
                 if(voiceHolding)
@@ -684,7 +712,8 @@ void processButtons(void)
                   buzzerMode = 3;oldVibrationMode=true;
                 }else
                 {
-				  //================== Key un-Pressed is detected. =================================
+				          //================== Key un-Pressed is detected. =================================
+                  
                   Serial.println("V.Released");  // Key un-Pressed is detected.
 
                 }
@@ -696,7 +725,7 @@ void processButtons(void)
                 break;
               }//switch                
           }//if time
-          timeVoiceLastPress = timeVoiceKeyPress;
+          timeVoiceLastPress = millis();//timeVoiceKeyPress;
       break;
      case 4:
        if ( millis() - timeVoiceLastPress >= HOLDSTART_TIME)
@@ -717,16 +746,21 @@ void processButtons(void)
       break;
      //==================================== ACTION BUTTON PRESSED, RELEASED, HOLDING, HOLD_END STATES ================================================
      case 5://actionKeyPressed
-          btnState = 0;
-          timeActionKeyPress = millis();
-          if ( timeActionKeyPress - timeActionLastPress >= DEBOUNCE_TIME)
+          //btnState = 0;
+          //timeActionKeyPress = millis();
+          swContextState = 0;
+          contextHolding = 0;
+          swVoiceState = 0;
+          voiceHolding = 0;
+          if ( millis() - timeActionLastPress >= DEBOUNCE_TIME)
           {
               switch(swActionState){
               case 0:
                 //================== KeyPressed is detected. =================================
-				        Serial.println("A.Pressed");// KeyPressed is detected.
+				        
                 btnState = 6;
                 swActionState = 1;
+                Serial.println("A.Pressed");// KeyPressed is detected.
                 break;
               case 1:
                 if(actionHolding)
@@ -739,17 +773,20 @@ void processButtons(void)
                     if(moveEvent)
                     {
                       moveEvent = false;
-                      publishing(mapDevice[0],actions[optIndex-1]);
+                      if(actions[optIndex-1]!="-"){
+                      publishing(mapDevice[0],"false",actions[optIndex-1]);
                       #ifndef RELEASE
                       Serial.println("publishing action");
                       #endif
                       mapAction[0]=actions[optIndex-1];
-
                       displayMode = 4;
                       wState = 6;
-                    }
-                  }
-                  //tmrAction.stop();
+                      }
+                    }//moveEvet
+                  }//wState
+                  if ((millis() - pre4000ms) >= 6000)
+                    {anotherAction = true; pre4000ms = millis();}
+                  
                 }else
                 {
                   //================== Key un-Pressed is detected. =================================
@@ -764,17 +801,17 @@ void processButtons(void)
                 break;
               }//switch                
           }//if time
-          timeActionLastPress = timeActionKeyPress;
+          timeActionLastPress = millis();
       break;
      case 6:
        if ( millis() - timeActionLastPress >= HOLDSTART_TIME)
        {
           //================== Key Holding starts here =================================
 		      Serial.println("A.Hold");//Key Holding starts here
-          //tmrAction.start();
+          buzzerMode = 6;oldBuzzerMode=true;
           pre4000ms = millis();
           actionHolding = true;
-          anotherAction = true;
+          //anotherAction = true;
           btnState = 0;
        }
       break;
@@ -837,7 +874,7 @@ void ICACHE_RAM_ATTR readMic()
 /**************************************************************************/
 void refreshSubscribe()
 {
-  publishing(mapDevice[0],actions[optIndex-1]);
+  publishing(mapDevice[0],"false",actions[optIndex-1]);
   #ifndef RELEASE
   Serial.println("publishing action");
   #endif
@@ -879,12 +916,13 @@ void callback(char* topic, byte *payload, unsigned int length)
   #endif
   switch(wState)
   {
-    case 0:
+    case 0://response of init
       parsing(payload);
       for (tt = 0; tt < 8; tt++) //Iterate through results
       {
         device[tt] = arr[tt];
           #ifndef RELEASE
+          
           Serial.print(tt,DEC);Serial.print(" ");Serial.println(arr[tt]);
           #endif
       }
@@ -898,12 +936,13 @@ void callback(char* topic, byte *payload, unsigned int length)
           wState = 1;
       }
       break;
-    case 2:
+    case 2://response of context click/pointing
       parsing(payload);
       for (tt = 0; tt < 8; tt++) //Iterate through results
       {
         actions[tt] = arr[tt];
         #ifndef RELEASE
+        
         Serial.print(tt,DEC);Serial.print(" ");Serial.println(arr[tt]);
         #endif
       }
@@ -923,12 +962,13 @@ void callback(char* topic, byte *payload, unsigned int length)
       }
       //publishing("light", "up");
       break;
-    case 4:
+    case 4://response of context holding
       parsing(payload);
       for (tt = 0; tt < 8; tt++) //Iterate through results
       {
         actions[tt] = arr[tt];
         #ifndef RELEASE
+        
         Serial.print(tt,DEC);Serial.print(" ");Serial.println(arr[tt]);
         #endif
       }
@@ -937,6 +977,7 @@ void callback(char* topic, byte *payload, unsigned int length)
       {
           //Serial.println("none found");
           displayMode = 1;
+          vibrationMode = 1;oldVibrationMode =true;
           wState = 0;
       }else
       {
@@ -1008,7 +1049,7 @@ void setDisplayMode(unsigned char om)
       oled.display();
       break;
     case 2:
-    case 7:
+    case 7://same
       oled.clear();
       oled.setTextAlignment(TEXT_ALIGN_LEFT);
       oled.setFont(ArialMT_Plain_16);
@@ -1074,6 +1115,16 @@ void setDisplayMode(unsigned char om)
       oled.drawString(21, 32, mapAction[0]);
       oled.display();
       cntDispScreenTime++;
+      break;
+    case 5:
+    case 10:
+      oled.clear();
+      oled.setTextAlignment(TEXT_ALIGN_LEFT);
+      oled.setFont(ArialMT_Plain_16);
+      oled.setColor(WHITE);
+      oled.drawString(21, 8, "Kein Kontext");
+      
+      oled.display();
       break;
     default:
       break;
@@ -1227,6 +1278,12 @@ void setBuzzerMode(unsigned char bm)
       break;
    case 4:
       tone(buzzerPin, frequency('e'), 3*113);
+      break;
+   case 5:
+      tone(buzzerPin, frequency('e'), 113);
+      break;
+   case 6:
+      tone(buzzerPin, frequency('a'), 3*113);
       break;
   }
   

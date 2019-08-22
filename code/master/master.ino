@@ -60,6 +60,8 @@ void setup() {
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
   reconnect();
+
+
   //Testing Audio Transfer using UDP, comment the above one wifi setup and comment in the loop() as well
   /*WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
@@ -226,32 +228,33 @@ void loop()
     pre500ms = curMs;
     //Action Button is Holding
     Serial.println("Holding...");
-    //publishing(mapDevice[0],actions[optIndex-1]);
+    //publishing(mapDevice[0],"false",actions[optIndex-1]);
     //Serial.println("publishing action");
     //mapAction[0]=actions[optIndex-1];
     //displayMode = 4;
     //wState = 6;
   }*/
   //Handle Sending Actions while Holding Action Button > 4sec.
-  if (((millis() - pre4000ms) >= 6000) && anotherAction) 
+  if(anotherAction)
   {
-    //pre4000ms = curMs;
-    anotherAction = false;
+    anotherAction= false;
     if((wState==3) || (wState==5))
     {
       if(moveEvent==false)
       {
-        publishing(mapDevice[0],actions[optIndex-1]);
-        publishing("audioAction");
+        publishing(mapDevice[0],"true");
+        //publishing(mapDevice[0],"false",actions[optIndex-1]);
         #ifndef RELEASE
         Serial.println("publishing audio action");
         #endif
-        mapAction[0]=actions[optIndex-1];
-        displayMode = 4;
-        wState = 6;
-      }
-    }
+        //mapAction[0]=actions[optIndex-1];
+        //displayMode = 4;
+        //wState = 6;
+      }//moveEvent
+    }//wState
+    
   }
+
   //Read LSM
   if ((curMs - pre25ms) >= 25) 
   {
@@ -259,8 +262,8 @@ void loop()
     read_lsm9ds1();
   }
 
-  //Return to wait for Action Button again after 2x3 sec
-  if((wState == 6) && (cntDispScreenTime==2))
+  //Return to wait for Action Button again after 1x3 sec//????//0
+  if((wState == 6) && (cntDispScreenTime==1))
   {
     cntDispScreenTime=0;
     displayMode = 3;

@@ -172,7 +172,7 @@ ISR(TIMER2_COMPA_vect)
       //Serial.print("Middle\n");
       //sendCmd2Master(JstickMid);
       cntMiddle++;
-      if(cntMiddle==50)
+      if(cntMiddle==50)//4msx50=200ms
       {
         cntMiddle = 0;
         inMiddle = true;
